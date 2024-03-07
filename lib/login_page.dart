@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:animate_do/animate_do.dart';
-import 'main2.dart'; // Importa tu archivo main2.dart
+import 'package:fluttertoast/fluttertoast.dart'; // Importa fluttertoast
+import 'main2.dart';
 
 void main() => runApp(
       const MaterialApp(
@@ -13,21 +14,39 @@ void main() => runApp(
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key, required String title}) : super(key: key);
 
-  // Agrega la función para autenticar con Firebase
   Future<void> _signInWithEmailAndPassword(
       String email, String password, BuildContext context) async {
     try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
-      
-      // Si las credenciales son correctas, navega a main2.dart
+      if (email.isEmpty || password.isEmpty) {
+        // Valida si el correo o la contraseña están vacíos
+        Fluttertoast.showToast(
+          msg: "Por favor, ingresa correo y contraseña",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+        );
+        return;
+      }
+
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const MainApp()),
       );
-    } catch (e) {
+    } on FirebaseAuthException catch (e) {
       // Maneja errores de autenticación aquí
-      print('Error de autenticación: $e');
+      Fluttertoast.showToast(
+        msg: "Error de autenticación: ${e.message}",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+      );
     }
   }
 
@@ -46,7 +65,7 @@ class LoginPage extends StatelessWidget {
               Color(0xFF177272),
               Color(0xFF20aca8),
               Color(0xFF68e0d6),
-            ], // #177272, #20aca8, #68e0d6
+            ],
           ),
         ),
         child: Column(
@@ -169,7 +188,6 @@ class LoginPage extends StatelessWidget {
                         duration: const Duration(milliseconds: 1600),
                         child: MaterialButton(
                           onPressed: () {
-                            // Llama a la función de autenticación con Firebase
                             _signInWithEmailAndPassword(email, password, context);
                           },
                           height: 50,

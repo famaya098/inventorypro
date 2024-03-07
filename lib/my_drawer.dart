@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:inventorypro/historial_screen.dart';
 import 'package:inventorypro/home_screen.dart';
+import 'package:inventorypro/nueva_compra_screen.dart';
 import 'package:inventorypro/profile_screen.dart';
 import 'package:inventorypro/text_icon_button.dart';
 
@@ -29,27 +31,262 @@ class MyDrawer extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+
+
                 TextIconButton(
                   onPressed: () => Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
                       builder: (_) => const HomeScreen(),
                     ),
                   ),
-                  icon: Icons.home,
-                  label: 'Home Screen',
+                  icon: Icons.home_outlined,
+                  label: 'Inicio',
                 ),
+                
+                ExpansionTile(
+                  leading: const Icon(Icons.shopping_cart_outlined),
+                  title: const Text('Compras'),
+                  children: [
+                    ListTile(
+                      leading: const Icon(Icons.add_circle_outline_outlined),
+                      onTap: () {
+                        Navigator.of(context).pop(); // Cierra el menú
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (_) => const NuevaCompraScreen(),
+                          ),
+                        );
+                      },
+                      title: const Text('Nueva Compra'),
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.history_outlined),
+                      onTap: () {
+                        Navigator.of(context).pop(); // Cierra el menú
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (_) => const HistorialScreen(),
+                          ),
+                        );
+                      },
+                      title: const Text('Historial'),
+                    ),
+                  ],
+                ),
+
+
+              
                 const TextIconButton(
-                  icon: Icons.shopping_cart,
-                  label: 'My Orders',
+                  icon: Icons.inventory_outlined,
+                  label: 'Productos',
                 ),
+
+
                 const TextIconButton(
-                  icon: Icons.wallet_giftcard,
-                  label: 'Wish List',
+                  icon: Icons.precision_manufacturing_outlined,
+                  label: 'Fabricantes',
                 ),
-                const TextIconButton(
-                  icon: Icons.settings,
-                  label: 'Settings',
+
+
+
+                ExpansionTile(
+                  leading: const Icon(Icons.perm_contact_calendar_outlined),
+                  title: const Text('Contactos'),
+                  children: [
+                    ListTile(
+                      leading: const Icon(Icons.groups_outlined),
+                      onTap: () {
+                        Navigator.of(context).pop(); // Cierra el menú
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (_) => const NuevaCompraScreen(),
+                          ),
+                        );
+                      },
+                      title: const Text('Clientes'),
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.engineering_outlined),
+                      onTap: () {
+                        Navigator.of(context).pop(); // Cierra el menú
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (_) => const HistorialScreen(),
+                          ),
+                        );
+                      },
+                      title: const Text('Proveedores'),
+                    ),
+                  ],
                 ),
+
+
+
+                ExpansionTile(
+                  leading: const Icon(Icons.real_estate_agent_outlined),
+                  title: const Text('Facturación'),
+                  children: [
+                    ListTile(
+                      leading: const Icon(Icons.add_circle_outlined),
+                      onTap: () {
+                        Navigator.of(context).pop(); // Cierra el menú
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (_) => const NuevaCompraScreen(),
+                          ),
+                        );
+                      },
+                      title: const Text('Nueva Venta'),
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.summarize_outlined),
+                      onTap: () {
+                        Navigator.of(context).pop(); // Cierra el menú
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (_) => const HistorialScreen(),
+                          ),
+                        );
+                      },
+                      title: const Text('Administrar Facturas'),
+                    ),
+                  ],
+                ),
+
+
+
+                ExpansionTile(
+                  leading: const Icon(Icons.summarize_outlined),
+                  title: const Text('Reportes'),
+                  children: [
+                    ListTile(
+                      onTap: () {
+                        Navigator.of(context).pop(); // Cierra el menú
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (_) => const NuevaCompraScreen(),
+                          ),
+                        );
+                      },
+                      title: const Text('Ventas'),
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.groups_outlined),
+                      onTap: () {
+                        Navigator.of(context).pop(); // Cierra el menú
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (_) => const HistorialScreen(),
+                          ),
+                        );
+                      },
+                      title: const Text('Compras'),
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.groups_outlined),
+                      onTap: () {
+                        Navigator.of(context).pop(); // Cierra el menú
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (_) => const HistorialScreen(),
+                          ),
+                        );
+                      },
+                      title: const Text('Inventario'),
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.groups_outlined),
+                      onTap: () {
+                        Navigator.of(context).pop(); // Cierra el menú
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (_) => const HistorialScreen(),
+                          ),
+                        );
+                      },
+                      title: const Text('Utilidades'),
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.groups_outlined),
+                      onTap: () {
+                        Navigator.of(context).pop(); // Cierra el menú
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (_) => const HistorialScreen(),
+                          ),
+                        );
+                      },
+                      title: const Text('Kardex'),
+                    ),
+                  ],
+                ),
+
+
+
+                ExpansionTile(
+                  leading: const Icon(Icons.vpn_key_outlined),
+                  title: const Text('Accesos'),
+                  children: [
+                    ListTile(
+                      leading: const Icon(Icons.groups_outlined),
+                      onTap: () {
+                        Navigator.of(context).pop(); // Cierra el menú
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (_) => const NuevaCompraScreen(),
+                          ),
+                        );
+                      },
+                      title: const Text('Usuarios'),
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.groups_outlined),
+                      onTap: () {
+                        Navigator.of(context).pop(); // Cierra el menú
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (_) => const HistorialScreen(),
+                          ),
+                        );
+                      },
+                      title: const Text('Agregar Usuario'),
+                    ),
+                  ],
+                ),
+
+
+                ExpansionTile(
+                  leading: const Icon(Icons.settings_outlined),
+                  title: const Text('Configuracion'),
+                  children: [
+                    ListTile(
+                      leading: const Icon(Icons.groups_outlined),
+                      onTap: () {
+                        Navigator.of(context).pop(); // Cierra el menú
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (_) => const NuevaCompraScreen(),
+                          ),
+                        );
+                      },
+                      title: const Text('Perfil de la Empresa'),
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.groups_outlined),
+                      onTap: () {
+                        Navigator.of(context).pop(); // Cierra el menú
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (_) => const HistorialScreen(),
+                          ),
+                        );
+                      },
+                      title: const Text('Impuestos'),
+                    ),
+                  ],
+                ),
+
+
                 const Divider(
                   height: 50,
                   color: Colors.black,
@@ -83,7 +320,7 @@ Widget buildHeader() => InkWell(
           children: [
             CircleAvatar(
               radius: 60,
-              backgroundImage: AssetImage('resources/perfil3.JPG'),
+              backgroundImage: AssetImage('assets/usuario.png'),
             ),
             SizedBox(height: 15),
             Text(
