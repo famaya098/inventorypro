@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:inventorypro/home.dart';
+import 'package:inventorypro/home_screen.dart';
 import 'package:inventorypro/profile_screen.dart';
 import 'package:inventorypro/text_icon_button.dart';
-//import 'package:flutter_drawer_tutorial/home_screen.dart';
-//import 'package:flutter_drawer_tutorial/profile_screen.dart';
-//import 'package:flutter_drawer_tutorial/text_icon_button.dart';
-
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -87,11 +83,11 @@ Widget buildHeader() => InkWell(
           children: [
             CircleAvatar(
               radius: 60,
-              backgroundImage: AssetImage('assets/perfil3.jpg'),
+              backgroundImage: AssetImage('resources/perfil3.JPG'),
             ),
             SizedBox(height: 15),
             Text(
-              'Max Alegri',
+              'Freddy Amaya',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 22,
@@ -104,7 +100,7 @@ Widget buildHeader() => InkWell(
               children: [
                 Icon(Icons.location_on, color: Colors.white),
                 Text(
-                  'New York',
+                  'San Salvador',
                   style: TextStyle(color: Colors.white70),
                 ),
               ],
