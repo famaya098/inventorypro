@@ -13,7 +13,7 @@ class ProfileScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset('assets/usuario.png'),
+          Image.asset('assets/perfil3.jpg'),
           const SizedBox(height: 15),
           const Text(
             'Freddy Amaya',

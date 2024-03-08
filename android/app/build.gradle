@@ -23,7 +23,7 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "com.example.inventorypro"
+0    namespace "com.example.inventorypro"
     compileSdk flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 

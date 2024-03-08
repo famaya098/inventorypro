@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inventorypro/clientes_screen.dart';
 import 'package:inventorypro/historial_screen.dart';
 import 'package:inventorypro/home_screen.dart';
 import 'package:inventorypro/nueva_compra_screen.dart';
@@ -53,7 +54,7 @@ class MyDrawer extends StatelessWidget {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (_) => const NuevaCompraScreen(),
+                            builder: (_) => const ClientesScreen(),
                           ),
                         );
                       },
@@ -69,7 +70,7 @@ class MyDrawer extends StatelessWidget {
                           ),
                         );
                       },
-                      title: const Text('Historial'),
+                      title: const Text('Historial Compras'),
                     ),
                   ],
                 ),
@@ -160,6 +161,7 @@ class MyDrawer extends StatelessWidget {
                   title: const Text('Reportes'),
                   children: [
                     ListTile(
+                      leading: const Icon(Icons.note_add_outlined),
                       onTap: () {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
@@ -171,7 +173,7 @@ class MyDrawer extends StatelessWidget {
                       title: const Text('Ventas'),
                     ),
                     ListTile(
-                      leading: const Icon(Icons.groups_outlined),
+                      leading: const Icon(Icons.description_outlined),
                       onTap: () {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
@@ -183,7 +185,7 @@ class MyDrawer extends StatelessWidget {
                       title: const Text('Compras'),
                     ),
                     ListTile(
-                      leading: const Icon(Icons.groups_outlined),
+                      leading: const Icon(Icons.file_open_outlined),
                       onTap: () {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
@@ -195,7 +197,7 @@ class MyDrawer extends StatelessWidget {
                       title: const Text('Inventario'),
                     ),
                     ListTile(
-                      leading: const Icon(Icons.groups_outlined),
+                      leading: const Icon(Icons.post_add_outlined),
                       onTap: () {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
@@ -207,7 +209,7 @@ class MyDrawer extends StatelessWidget {
                       title: const Text('Utilidades'),
                     ),
                     ListTile(
-                      leading: const Icon(Icons.groups_outlined),
+                      leading: const Icon(Icons.article_outlined),
                       onTap: () {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
@@ -228,7 +230,7 @@ class MyDrawer extends StatelessWidget {
                   title: const Text('Accesos'),
                   children: [
                     ListTile(
-                      leading: const Icon(Icons.groups_outlined),
+                      leading: const Icon(Icons.people_alt_outlined),
                       onTap: () {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
@@ -240,7 +242,7 @@ class MyDrawer extends StatelessWidget {
                       title: const Text('Usuarios'),
                     ),
                     ListTile(
-                      leading: const Icon(Icons.groups_outlined),
+                      leading: const Icon(Icons.add_circle_outline_outlined),
                       onTap: () {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
@@ -260,7 +262,7 @@ class MyDrawer extends StatelessWidget {
                   title: const Text('Configuracion'),
                   children: [
                     ListTile(
-                      leading: const Icon(Icons.groups_outlined),
+                      leading: const Icon(Icons.factory_outlined),
                       onTap: () {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
@@ -272,7 +274,7 @@ class MyDrawer extends StatelessWidget {
                       title: const Text('Perfil de la Empresa'),
                     ),
                     ListTile(
-                      leading: const Icon(Icons.groups_outlined),
+                      leading: const Icon(Icons.paid_outlined),
                       onTap: () {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
@@ -314,13 +316,13 @@ Widget buildHeader() => InkWell(
           top: 40,
           bottom: 20,
         ),
-        color: const Color(0xff3444B5),
+        color: const Color(0xff177272),
         child: const Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CircleAvatar(
               radius: 60,
-              backgroundImage: AssetImage('assets/usuario.png'),
+              backgroundImage: AssetImage('assets/perfil3.jpg'),
             ),
             SizedBox(height: 15),
             Text(

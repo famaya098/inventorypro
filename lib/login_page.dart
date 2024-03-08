@@ -12,7 +12,7 @@ void main() => runApp(
     );
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key, required String title}) : super(key: key);
+  const LoginPage({super.key, required String title});
 
   Future<void> _signInWithEmailAndPassword(
       String email, String password, BuildContext context) async {
@@ -149,6 +149,7 @@ class LoginPage extends StatelessWidget {
                                   ),
                                 ),
                               ),
+                              
                               Container(
                                 padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(

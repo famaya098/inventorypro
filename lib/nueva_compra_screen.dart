@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class NuevaCompraScreen extends StatelessWidget {
-  const NuevaCompraScreen({Key? key}) : super(key: key);
+  const NuevaCompraScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
