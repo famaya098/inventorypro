@@ -6,11 +6,11 @@ import 'my_drawer.dart';
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Roboto'),
-      home: HomeScreen(),
+      home: const HomeScreen(),
     ));
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
         leading: Builder(
           builder: (context) {
             return IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.menu,
                 color: Colors.black87,
               ),
@@ -32,7 +32,7 @@ class HomeScreen extends StatelessWidget {
           },
         ),
         systemOverlayStyle: SystemUiOverlayStyle.dark,
-        title: Text('', style: TextStyle(color: Colors.black)),
+        title: const Text('', style: TextStyle(color: Colors.black)),
       ),
       drawer: const MyDrawer(),
       endDrawer: const MyDrawer(),
@@ -42,37 +42,37 @@ class HomeScreen extends StatelessWidget {
           children: <Widget>[
             Container(
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius:
                       BorderRadius.vertical(bottom: Radius.circular(30))),
-              padding: EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
+                  const Text(
                     'Panel de',
                     style: TextStyle(color: Colors.black87, fontSize: 25),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
-                  Text(
+                  const Text(
                     'Control',
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 40,
                         fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
-                    padding: EdgeInsets.all(5),
+                    padding: const EdgeInsets.all(5),
                     decoration: BoxDecoration(
-                        color: Color.fromRGBO(244, 243, 243, 1),
+                        color: const Color.fromRGBO(244, 243, 243, 1),
                         borderRadius: BorderRadius.circular(15)),
-                    child: TextField(
+                    child: const TextField(
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           prefixIcon: Icon(
@@ -83,13 +83,13 @@ class HomeScreen extends StatelessWidget {
                           hintStyle: TextStyle(color: Colors.grey, fontSize: 15)),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Padding(
@@ -97,11 +97,11 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    'Indicadores',
+                  const Text(
+                    'Reporte de Ventas',
                     style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   SizedBox(
@@ -116,32 +116,32 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
                     height: 150,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      image: DecorationImage(
+                      image: const DecorationImage(
                           fit: BoxFit.cover,
-                          image: AssetImage('assets/images/three.jpg')),
+                          image: AssetImage('assets/images/estadistica.jpg')),
                     ),
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         gradient: LinearGradient(
                             begin: Alignment.bottomRight,
-                            stops: [0.3, 0.9],
+                            stops: const [0.3, 0.9],
                             colors: [
                               Colors.black.withOpacity(.8),
                               Colors.black.withOpacity(.2)
                             ]),
                       ),
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.bottomLeft,
                         child: Padding(
-                          padding: const EdgeInsets.all(15.0),
+                          padding: EdgeInsets.all(15.0),
                           child: Text(
                             'Estadisticas',
                             style: TextStyle(color: Colors.white, fontSize: 20),
@@ -163,7 +163,7 @@ class HomeScreen extends StatelessWidget {
     return AspectRatio(
       aspectRatio: 2.62 / 3,
       child: Container(
-        margin: EdgeInsets.only(right: 15.0),
+        margin: const EdgeInsets.only(right: 15.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           image: DecorationImage(fit: BoxFit.cover, image: AssetImage(image)),
@@ -171,7 +171,7 @@ class HomeScreen extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              gradient: LinearGradient(begin: Alignment.bottomRight, stops: [
+              gradient: LinearGradient(begin: Alignment.bottomRight, stops: const [
                 0.1,
                 0.9
               ], colors: [
