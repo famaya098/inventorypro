@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:animate_do/animate_do.dart';
-import 'package:fluttertoast/fluttertoast.dart'; // Importa fluttertoast
+import 'package:fluttertoast/fluttertoast.dart'; 
 import 'main2.dart';
 
 void main() => runApp(
@@ -39,7 +39,7 @@ class LoginPage extends StatelessWidget {
         MaterialPageRoute(builder: (context) => const MainApp()),
       );
     } on FirebaseAuthException catch (e) {
-      // Maneja errores de autenticación aquí
+      
       Fluttertoast.showToast(
         msg: "Error de autenticación: ${e.message}",
         toastLength: Toast.LENGTH_SHORT,

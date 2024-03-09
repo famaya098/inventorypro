@@ -10,7 +10,7 @@ void main() => runApp(MaterialApp(
     ));
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,19 +51,13 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const Text(
-                    'Panel de',
+                    'Hola, Freddy!',
                     style: TextStyle(color: Colors.black87, fontSize: 25),
                   ),
                   const SizedBox(
                     height: 5,
                   ),
-                  const Text(
-                    'Control',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold),
-                  ),
+                  
                   const SizedBox(
                     height: 20,
                   ),
@@ -109,10 +103,10 @@ class HomeScreen extends StatelessWidget {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: <Widget>[
-                        promoCard('assets/images/inven.jpg'),
-                        promoCard('assets/images/two.jpg'),
-                        promoCard('assets/images/three.jpg'),
-                        promoCard('assets/images/four.jpg'),
+                        promoCard('assets/images/inven.jpg', 'Inventario'),
+                        promoCard('assets/images/ventas.jpg', 'Ventas'),
+                        promoCard('assets/images/compras.png', 'Compras'),
+                        promoCard('assets/images/clientes.png', 'Clientes'),
                       ],
                     ),
                   ),
@@ -159,7 +153,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget promoCard(image) {
+  Widget promoCard(image, title) {
     return AspectRatio(
       aspectRatio: 2.62 / 3,
       child: Container(
@@ -178,6 +172,16 @@ class HomeScreen extends StatelessWidget {
                 Colors.black.withOpacity(.8),
                 Colors.black.withOpacity(.1)
               ])),
+          child: Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Text(
+                title,
+                style: const TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ),
+          ),
         ),
       ),
     );

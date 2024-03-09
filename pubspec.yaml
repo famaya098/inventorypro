@@ -47,9 +47,10 @@ flutter:
   assets:
     - assets/
     - assets/images/inven.jpg
-    - assets/images/two.jpg
-    - assets/images/three.jpg
-    - assets/images/four.jpg
+    - assets/images/ventas.jpg
+    - assets/images/compras.png
+    - assets/images/clientes.png
+    - assets/images/estadistica.jpg
 
 
 fonts:

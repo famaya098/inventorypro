@@ -1,10 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:inventorypro/administrar_facturas_screen.dart';
+import 'package:inventorypro/agregar_usuario_screen.dart';
 import 'package:inventorypro/clientes_screen.dart';
+import 'package:inventorypro/fabricantes_screen.dart';
 import 'package:inventorypro/historial_screen.dart';
 import 'package:inventorypro/home_screen.dart';
+import 'package:inventorypro/impuestos_screen.dart';
+import 'package:inventorypro/login_page.dart';
 import 'package:inventorypro/nueva_compra_screen.dart';
+import 'package:inventorypro/nueva_venta_screen.dart';
+import 'package:inventorypro/perfil_empresa_screen.dart';
+import 'package:inventorypro/productos_screen.dart';
 import 'package:inventorypro/profile_screen.dart';
+import 'package:inventorypro/proveedores_screen.dart';
+import 'package:inventorypro/reporte_inventario_screen.dart';
+import 'package:inventorypro/reporte_kardex_screen.dart';
+import 'package:inventorypro/reporte_utilidades_screen.dart';
+import 'package:inventorypro/reporte_ventas_screen%20copy.dart';
+import 'package:inventorypro/reporte_compras_screen.dart';
 import 'package:inventorypro/text_icon_button.dart';
+import 'package:inventorypro/usuarios_screen.dart';
+
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -13,25 +30,25 @@ class MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       backgroundColor: Colors.white,
-      child: Column(
-        children: [
-          // Header part of the drawer
-          InkWell(
-            onTap: () => Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (_) => const ProfileScreen(),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            InkWell(
+              onTap: () => Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (_) => const ProfileScreen(),
+                ),
               ),
+              child: buildHeader(),
             ),
-            child: buildHeader(),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 20,
-              horizontal: 30,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 20,
+                horizontal: 30,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
 
 
                 TextIconButton(
@@ -54,7 +71,7 @@ class MyDrawer extends StatelessWidget {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (_) => const ClientesScreen(),
+                            builder: (_) => const NuevaCompraScreen(),
                           ),
                         );
                       },
@@ -76,17 +93,28 @@ class MyDrawer extends StatelessWidget {
                 ),
 
 
-              
-                const TextIconButton(
+
+                 TextIconButton(
+                  onPressed: () => Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (_) => const ProductosScreen(),
+                    ),
+                  ),
                   icon: Icons.inventory_outlined,
                   label: 'Productos',
                 ),
+                
 
-
-                const TextIconButton(
+                TextIconButton(
+                  onPressed: () => Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (_) => const FabricantesScreen(),
+                    ),
+                  ),
                   icon: Icons.precision_manufacturing_outlined,
                   label: 'Fabricantes',
                 ),
+                
 
 
 
@@ -100,7 +128,7 @@ class MyDrawer extends StatelessWidget {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (_) => const NuevaCompraScreen(),
+                            builder: (_) => const ClientesScreen(),
                           ),
                         );
                       },
@@ -112,7 +140,7 @@ class MyDrawer extends StatelessWidget {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (_) => const HistorialScreen(),
+                            builder: (_) => const ProveedoresScreen(),
                           ),
                         );
                       },
@@ -133,7 +161,7 @@ class MyDrawer extends StatelessWidget {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (_) => const NuevaCompraScreen(),
+                            builder: (_) => const NuevaVentaScreen(),
                           ),
                         );
                       },
@@ -145,7 +173,7 @@ class MyDrawer extends StatelessWidget {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (_) => const HistorialScreen(),
+                            builder: (_) => const AdminFacturasScreen(),
                           ),
                         );
                       },
@@ -166,7 +194,7 @@ class MyDrawer extends StatelessWidget {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (_) => const NuevaCompraScreen(),
+                            builder: (_) => const ReporteVentasScreen(),
                           ),
                         );
                       },
@@ -178,7 +206,7 @@ class MyDrawer extends StatelessWidget {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (_) => const HistorialScreen(),
+                            builder: (_) => const ReporteComprasScreen(),
                           ),
                         );
                       },
@@ -190,7 +218,7 @@ class MyDrawer extends StatelessWidget {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (_) => const HistorialScreen(),
+                            builder: (_) => const ReporteInventarioScreen(),
                           ),
                         );
                       },
@@ -202,7 +230,7 @@ class MyDrawer extends StatelessWidget {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (_) => const HistorialScreen(),
+                            builder: (_) => const ReporteUtilidadesScreen(),
                           ),
                         );
                       },
@@ -214,7 +242,7 @@ class MyDrawer extends StatelessWidget {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (_) => const HistorialScreen(),
+                            builder: (_) => const ReporteKardexScreen(),
                           ),
                         );
                       },
@@ -235,7 +263,7 @@ class MyDrawer extends StatelessWidget {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (_) => const NuevaCompraScreen(),
+                            builder: (_) => const UsuariosScreen(),
                           ),
                         );
                       },
@@ -247,7 +275,7 @@ class MyDrawer extends StatelessWidget {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (_) => const HistorialScreen(),
+                            builder: (_) => const AgregarUsuariosScreen(),
                           ),
                         );
                       },
@@ -267,7 +295,7 @@ class MyDrawer extends StatelessWidget {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (_) => const NuevaCompraScreen(),
+                            builder: (_) => const PerfilEmpresaScreen(),
                           ),
                         );
                       },
@@ -279,7 +307,7 @@ class MyDrawer extends StatelessWidget {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (_) => const HistorialScreen(),
+                            builder: (_) => const ImpuestosScreen(),
                           ),
                         );
                       },
@@ -294,9 +322,31 @@ class MyDrawer extends StatelessWidget {
                   color: Colors.black,
                   thickness: 1,
                 ),
+                
                 TextIconButton(
                   onPressed: () {
-                    Scaffold.of(context).closeDrawer();
+                    
+                    Navigator.of(context).pop();
+
+                  
+                    Fluttertoast.showToast(
+                      msg: "Sesión cerrada",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.grey,
+                      textColor: Colors.white,
+                      fontSize: 16.0,
+                    );
+
+                    
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const LoginPage(title: '',), 
+                      ),
+                      (route) => false,
+                    );
                   },
                   icon: Icons.logout,
                   label: 'Log Out',
@@ -306,6 +356,7 @@ class MyDrawer extends StatelessWidget {
           ),
         ],
       ),
+    )
     );
   }
 }
