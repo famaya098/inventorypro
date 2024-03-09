@@ -8,7 +8,7 @@ class ProveedoresScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Clientes'),
+        title: const Text('Proveedores'),
         leading: Builder(
           builder: (context) {
             return IconButton(
