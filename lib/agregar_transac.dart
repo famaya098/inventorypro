@@ -3,7 +3,8 @@ import 'my_drawer.dart';
 
 class AgregarTransac extends StatelessWidget {
   const AgregarTransac({super.key});
-Widget build(BuildContext context) {
+@override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Nueva Transacción'),
@@ -28,34 +29,34 @@ Widget build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'DATOS DE ENTRADA Y SALIDA DE MEDICAMENTOS',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 24, color: const Color.fromARGB(255, 0, 0, 0)),
+                style: TextStyle(fontSize: 24, color: Color.fromARGB(255, 0, 0, 0)),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Codigo Transacción:',
                 style: TextStyle(fontSize: 16),
               ),
               TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: '',
                 ),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Fecha:',
                 style: TextStyle(fontSize: 16),
               ),
               TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: '',
                 ),
                 keyboardType: TextInputType.datetime,
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Medicamento:',
                 style: TextStyle(fontSize: 16),
               ),
@@ -69,30 +70,30 @@ Widget build(BuildContext context) {
                 }).toList(),
                 onChanged: (_) {},
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Stock:',
                 style: TextStyle(fontSize: 16),
               ),
               TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: '',
                 ),
                 keyboardType: TextInputType.number,
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Cantidad de Ingreso o Salida:',
                 style: TextStyle(fontSize: 16),
               ),
               TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Ingrese la cantidad de ingreso o salida',
                 ),
                 keyboardType: TextInputType.number,
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Tipo Transacción:',
                 style: TextStyle(fontSize: 16),
               ),
@@ -106,18 +107,18 @@ Widget build(BuildContext context) {
                 }).toList(),
                 onChanged: (_) {},
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Total Stock:',
                 style: TextStyle(fontSize: 16),
               ),
               TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: '',
                 ),
                 keyboardType: TextInputType.number,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -125,15 +126,15 @@ Widget build(BuildContext context) {
                     onPressed: () {
                       // Acción al presionar el botón de guardar
                     },
-                    child: Text('Guardar'),
+                    child: const Text('Guardar'),
                   ),
-                  SizedBox(width: 20),
+                  const SizedBox(width: 20),
                   OutlinedButton(
                     onPressed: () {
                       // Acción al presionar el botón de regresar
                       Navigator.pop(context);
                     },
-                    child: Text('Regresar'),
+                    child: const Text('Regresar'),
                   ),
                 ],
               ),

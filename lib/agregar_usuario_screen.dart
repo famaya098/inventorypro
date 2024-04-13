@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'my_drawer.dart';
 
 class AgregarUsuariosScreen extends StatelessWidget {
-  const AgregarUsuariosScreen({Key? key}) : super(key: key);
+  const AgregarUsuariosScreen({super.key});
 
  @override
   Widget build(BuildContext context) {
@@ -27,8 +27,8 @@ class AgregarUsuariosScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 28.0),
+            const Padding(
+              padding: EdgeInsets.only(top: 28.0),
               child: Text(
                 'REGISTRO USUARIO',
                 style: TextStyle(
@@ -43,91 +43,91 @@ class AgregarUsuariosScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  SizedBox(height: 20),
-              Text(
+                  const SizedBox(height: 20),
+              const Text(
                 'Email:',
                 style: TextStyle(fontSize: 16),
               ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Correo Electrónico',
                     ),
                   ),
-                  SizedBox(height: 20),
-              Text(
+                  const SizedBox(height: 20),
+              const Text(
                 'Contraseña:',
                 style: TextStyle(fontSize: 16),
               ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Contraseña',
                     ),
                     obscureText: true,
                   ),
-                  SizedBox(height: 20),
-              Text(
+                  const SizedBox(height: 20),
+              const Text(
                 'Nombre de Usuario:',
                 style: TextStyle(fontSize: 16),
               ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Nombre de Usuario',
                     ),
                   ),
-                  SizedBox(height: 20),
-              Text(
+                  const SizedBox(height: 20),
+              const Text(
                 'Nombre:',
                 style: TextStyle(fontSize: 16),
               ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Nombres',
                     ),
                   ),
-                  SizedBox(height: 20),
-              Text(
+                  const SizedBox(height: 20),
+              const Text(
                 'Apellido:',
                 style: TextStyle(fontSize: 16),
               ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Apellidos',
                     ),
                   ),
-                  SizedBox(height: 20),
-              Text(
+                  const SizedBox(height: 20),
+              const Text(
                 'Dirección:',
                 style: TextStyle(fontSize: 16),
               ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Dirección',
                     ),
                   ),
-                  SizedBox(height: 20),
-              Text(
+                  const SizedBox(height: 20),
+              const Text(
                 'Teléfono:',
                 style: TextStyle(fontSize: 16),
               ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Teléfono',
                     ),
                     keyboardType: TextInputType.phone,
                   ),
-                  SizedBox(height: 20),
-              Text(
+                  const SizedBox(height: 20),
+              const Text(
                 'Fecha de Nacimiento:',
                 style: TextStyle(fontSize: 16),
               ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Fecha de Nacimiento',
                     ),
                     keyboardType: TextInputType.datetime,
                   ),
-                  SizedBox(height: 20),
-              Text(
+                  const SizedBox(height: 20),
+              const Text(
                 'Tipo de Permiso:',
                 style: TextStyle(fontSize: 16),
               ),                  
@@ -145,12 +145,12 @@ class AgregarUsuariosScreen extends StatelessWidget {
                   const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {},
-                    child: Text('Cargar Una Foto'),
+                    child: const Text('Cargar Una Foto'),
                   ),
                   const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {},
-                    child: Text('Registrar'),
+                    child: const Text('Registrar'),
                   ),
                   
                 ],

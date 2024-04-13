@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'my_drawer.dart';
 
 class AdminCodee extends StatelessWidget {
-  const AdminCodee({Key? key}) : super(key: key);
+  const AdminCodee({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,25 +44,25 @@ class AdminCodee extends StatelessWidget {
                     onPressed: () {
                       // Acción para el botón Regresar
                     },
-                    child: const Text('Regresar'),
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                         side: const BorderSide(color: Colors.white),
                       ),
                     ),
+                    child: const Text('Regresar'),
                   ),
                   const SizedBox(width: 16),
                   ElevatedButton(
                     onPressed: () {
                       // Acción para el botón OK
                     },
-                    child: const Text('OK'),
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
+                    child: const Text('OK'),
                   ),
                 ],
               ),

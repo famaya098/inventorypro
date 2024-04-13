@@ -66,6 +66,7 @@ class LoginPage extends StatelessWidget {
                 Color(0xFF177272),
                 Color(0xFF20aca8),
                 Color(0xFF68e0d6),
+                Color(0xFF073142),
               ],
             ),
           ),

@@ -1,26 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:inventorypro/admin_codee.dart';
 import 'package:inventorypro/agregar_usuario_screen.dart';
 import 'package:inventorypro/lista_usuarios.dart';
-import 'package:inventorypro/lista_transacciones.dart';
-import 'package:inventorypro/editar_producto.dart';
+
 import 'package:inventorypro/home_screen.dart';
-import 'package:inventorypro/editar_usuario.dart';
+
 import 'package:inventorypro/login_page.dart';
 import 'package:inventorypro/lista_productos_screen.dart';
-import 'package:inventorypro/agregar_transac.dart';
-import 'package:inventorypro/perfil_empresa_screen.dart';
-import 'package:inventorypro/productos_screen.dart';
+
 import 'package:inventorypro/profile_screen.dart';
-import 'package:inventorypro/proveedores_screen.dart';
-import 'package:inventorypro/reporte_inventario_screen.dart';
-import 'package:inventorypro/reporte_kardex_screen.dart';
-import 'package:inventorypro/reporte_utilidades_screen.dart';
+
 import 'package:inventorypro/reporte_ventas_screen%20copy.dart';
 import 'package:inventorypro/reporte_compras_screen.dart';
 import 'package:inventorypro/text_icon_button.dart';
-import 'package:inventorypro/usuarios_screen.dart';
+
 
 
 class MyDrawer extends StatelessWidget {

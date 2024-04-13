@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'my_drawer.dart';
 
 class EditarUsuario extends StatelessWidget {
-  const EditarUsuario({Key? key}) : super(key: key);
+  const EditarUsuario({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +29,12 @@ class EditarUsuario extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 28.0, left: 16.0),
-              child: Text(
-                'EDITAR USUARIO',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: const Color.fromARGB(255, 0, 0, 0),
+            const Padding(
+              padding: EdgeInsets.only(top: 28.0, left: 16.0),
+              child: Center(
+                child: Text(
+                  'EDITAR USUARIO',
+                  style: TextStyle(fontSize: 24),
                 ),
               ),
             ),
@@ -45,37 +44,37 @@ class EditarUsuario extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  SizedBox(height: 20),
-                  Text(
+                  const SizedBox(height: 20),
+                  const Text(
                     'Nombre de usuario:',
                     style: TextStyle(fontSize: 16),
                   ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Nombre de Usuario',
                     ),
                   ),
-                  SizedBox(height: 20),
-                  Text(
+                  const SizedBox(height: 20),
+                  const Text(
                     'UID:',
                     style: TextStyle(fontSize: 16),
                   ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'UID',
                     ),
                   ),
-                  SizedBox(height: 20),
-                  Text(
+                  const SizedBox(height: 20),
+                  const Text(
                     'Nombre:',
                     style: TextStyle(fontSize: 16),
                   ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Nombre',
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Text(
                     'Apellido:',
                     style: TextStyle(fontSize: 16),

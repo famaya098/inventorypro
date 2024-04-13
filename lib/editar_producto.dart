@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'my_drawer.dart';
 
 class EditarProducto extends StatelessWidget {
-  const EditarProducto({Key? key}) : super(key: key);
+  const EditarProducto({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +27,8 @@ class EditarProducto extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 28.0),
+          const Padding(
+            padding: EdgeInsets.only(top: 28.0),
             child: Center(
               child: Text(
                 'DATOS DEL PRODUCTO',
@@ -46,67 +46,67 @@ class EditarProducto extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  SizedBox(height: 20),
-                  Text(
+                  const SizedBox(height: 20),
+                  const Text(
                     'Codigo:',
                     style: TextStyle(fontSize: 16),
                   ),
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Codigo:'),
+                    decoration: const InputDecoration(labelText: 'Codigo:'),
                   ),
-                  SizedBox(height: 20),
-                  Text(
+                  const SizedBox(height: 20),
+                  const Text(
                     'Nombre:',
                     style: TextStyle(fontSize: 16),
                   ),
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Nombre:'),
+                    decoration: const InputDecoration(labelText: 'Nombre:'),
                   ),
-                  SizedBox(height: 20),
-                  Text(
+                  const SizedBox(height: 20),
+                  const Text(
                     'Precio de compra:',
                     style: TextStyle(fontSize: 16),
                   ),
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Precio de Compra:'),
+                    decoration: const InputDecoration(labelText: 'Precio de Compra:'),
                   ),
-                  SizedBox(height: 20),
-                  Text(
+                  const SizedBox(height: 20),
+                  const Text(
                     'Precio de venta:',
                     style: TextStyle(fontSize: 16),
                   ),
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Precio de Venta:'),
+                    decoration: const InputDecoration(labelText: 'Precio de Venta:'),
                   ),
-                  SizedBox(height: 20),
-                  Text(
+                  const SizedBox(height: 20),
+                  const Text(
                     'Unidad:',
                     style: TextStyle(fontSize: 16),
                   ),
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Unidad:'),
+                    decoration: const InputDecoration(labelText: 'Unidad:'),
                   ),
-                  SizedBox(height: 20),
-                  Text(
+                  const SizedBox(height: 20),
+                  const Text(
                     'Stock:',
                     style: TextStyle(fontSize: 16),
                   ),
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Stock'),
+                    decoration: const InputDecoration(labelText: 'Stock'),
                   ),
                   const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {
                       // Acción al presionar el botón de guardar
                     },
-                    child: Text('Guardar'),
+                    child: const Text('Guardar'),
                   ),
                   const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {
                       // Acción al presionar el botón de eliminar
                     },
-                    child: Text('Eliminar'),
+                    child: const Text('Eliminar'),
                   ),
                  const SizedBox(height: 16),
                   OutlinedButton(
@@ -114,7 +114,7 @@ class EditarProducto extends StatelessWidget {
                       // Acción al presionar el botón de regresar
                       Navigator.pop(context);
                     },
-                    child: Text('Regresar'),
+                    child: const Text('Regresar'),
                   ),
                 ],
               ),
