@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:inventorypro/administrar_facturas_screen.dart';
+import 'package:inventorypro/admin_codee.dart';
 import 'package:inventorypro/agregar_usuario_screen.dart';
-import 'package:inventorypro/clientes_screen.dart';
-import 'package:inventorypro/fabricantes_screen.dart';
-import 'package:inventorypro/historial_screen.dart';
+import 'package:inventorypro/lista_usuarios.dart';
+import 'package:inventorypro/lista_transacciones.dart';
+import 'package:inventorypro/editar_producto.dart';
 import 'package:inventorypro/home_screen.dart';
-import 'package:inventorypro/impuestos_screen.dart';
+import 'package:inventorypro/editar_usuario.dart';
 import 'package:inventorypro/login_page.dart';
-import 'package:inventorypro/nueva_compra_screen.dart';
-import 'package:inventorypro/nueva_venta_screen.dart';
+import 'package:inventorypro/lista_productos_screen.dart';
+import 'package:inventorypro/agregar_transac.dart';
 import 'package:inventorypro/perfil_empresa_screen.dart';
 import 'package:inventorypro/productos_screen.dart';
 import 'package:inventorypro/profile_screen.dart';
@@ -61,135 +61,32 @@ class MyDrawer extends StatelessWidget {
                   label: 'Inicio',
                 ),
                 
-                ExpansionTile(
-                  leading: const Icon(Icons.shopping_cart_outlined),
-                  title: const Text('Compras'),
-                  children: [
-                    ListTile(
-                      leading: const Icon(Icons.add_circle_outline_outlined),
-                      onTap: () {
-                        Navigator.of(context).pop(); // Cierra el menú
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (_) => const NuevaCompraScreen(),
-                          ),
-                        );
-                      },
-                      title: const Text('Nueva Compra'),
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.history_outlined),
-                      onTap: () {
-                        Navigator.of(context).pop(); // Cierra el menú
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (_) => const HistorialScreen(),
-                          ),
-                        );
-                      },
-                      title: const Text('Historial Compras'),
-                    ),
-                  ],
-                ),
-
-
-
-                 TextIconButton(
+                TextIconButton(
                   onPressed: () => Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (_) => const ProductosScreen(),
+                      builder: (_) => const ListaProductosScreen(),
                     ),
                   ),
                   icon: Icons.inventory_outlined,
                   label: 'Productos',
                 ),
-                
 
                 TextIconButton(
                   onPressed: () => Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (_) => const FabricantesScreen(),
+                      builder: (_) => const HomeScreen(),
                     ),
                   ),
-                  icon: Icons.precision_manufacturing_outlined,
-                  label: 'Fabricantes',
+                  icon: Icons.compare_arrows,
+                  label: 'Transacciones',
                 ),
                 
-
-
-
-                ExpansionTile(
-                  leading: const Icon(Icons.perm_contact_calendar_outlined),
-                  title: const Text('Contactos'),
-                  children: [
-                    ListTile(
-                      leading: const Icon(Icons.groups_outlined),
-                      onTap: () {
-                        Navigator.of(context).pop(); // Cierra el menú
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (_) => const ClientesScreen(),
-                          ),
-                        );
-                      },
-                      title: const Text('Clientes'),
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.engineering_outlined),
-                      onTap: () {
-                        Navigator.of(context).pop(); // Cierra el menú
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (_) => const ProveedoresScreen(),
-                          ),
-                        );
-                      },
-                      title: const Text('Proveedores'),
-                    ),
-                  ],
-                ),
-
-
-
-                ExpansionTile(
-                  leading: const Icon(Icons.real_estate_agent_outlined),
-                  title: const Text('Facturación'),
-                  children: [
-                    ListTile(
-                      leading: const Icon(Icons.add_circle_outlined),
-                      onTap: () {
-                        Navigator.of(context).pop(); // Cierra el menú
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (_) => const NuevaVentaScreen(),
-                          ),
-                        );
-                      },
-                      title: const Text('Nueva Venta'),
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.summarize_outlined),
-                      onTap: () {
-                        Navigator.of(context).pop(); // Cierra el menú
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (_) => const AdminFacturasScreen(),
-                          ),
-                        );
-                      },
-                      title: const Text('Administrar Facturas'),
-                    ),
-                  ],
-                ),
-
-
-
-                ExpansionTile(
-                  leading: const Icon(Icons.summarize_outlined),
+ ExpansionTile(
+                  leading: const Icon(Icons.folder),
                   title: const Text('Reportes'),
                   children: [
                     ListTile(
-                      leading: const Icon(Icons.note_add_outlined),
+                      leading: const Icon(Icons.description),
                       onTap: () {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
@@ -198,10 +95,10 @@ class MyDrawer extends StatelessWidget {
                           ),
                         );
                       },
-                      title: const Text('Ventas'),
+                      title: const Text('Transacciones'),
                     ),
                     ListTile(
-                      leading: const Icon(Icons.description_outlined),
+                      leading: const Icon(Icons.library_books),
                       onTap: () {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
@@ -210,67 +107,31 @@ class MyDrawer extends StatelessWidget {
                           ),
                         );
                       },
-                      title: const Text('Compras'),
+                      title: const Text('Stock'),
                     ),
-                    ListTile(
-                      leading: const Icon(Icons.file_open_outlined),
-                      onTap: () {
-                        Navigator.of(context).pop(); // Cierra el menú
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (_) => const ReporteInventarioScreen(),
-                          ),
-                        );
-                      },
-                      title: const Text('Inventario'),
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.post_add_outlined),
-                      onTap: () {
-                        Navigator.of(context).pop(); // Cierra el menú
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (_) => const ReporteUtilidadesScreen(),
-                          ),
-                        );
-                      },
-                      title: const Text('Utilidades'),
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.article_outlined),
-                      onTap: () {
-                        Navigator.of(context).pop(); // Cierra el menú
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (_) => const ReporteKardexScreen(),
-                          ),
-                        );
-                      },
-                      title: const Text('Kardex'),
-                    ),
+                                        
                   ],
                 ),
-
-
+                
 
                 ExpansionTile(
-                  leading: const Icon(Icons.vpn_key_outlined),
-                  title: const Text('Accesos'),
+                  leading: const Icon(Icons.contacts),
+                  title: const Text('Administrar Usuarios'),
                   children: [
                     ListTile(
-                      leading: const Icon(Icons.people_alt_outlined),
+                      leading: const Icon(Icons.local_library),
                       onTap: () {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (_) => const UsuariosScreen(),
+                            builder: (_) => const ListaUsuariosScreen(),
                           ),
                         );
                       },
-                      title: const Text('Usuarios'),
+                      title: const Text('Ver usuarios'),
                     ),
-                    ListTile(
-                      leading: const Icon(Icons.add_circle_outline_outlined),
+                          ListTile(
+                      leading: const Icon(Icons.person_add),
                       onTap: () {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
@@ -279,42 +140,17 @@ class MyDrawer extends StatelessWidget {
                           ),
                         );
                       },
-                      title: const Text('Agregar Usuario'),
-                    ),
+                      title: const Text('Agregar usuarios'),
+                    ),                              
                   ],
                 ),
+                
+
+    
 
 
-                ExpansionTile(
-                  leading: const Icon(Icons.settings_outlined),
-                  title: const Text('Configuracion'),
-                  children: [
-                    ListTile(
-                      leading: const Icon(Icons.factory_outlined),
-                      onTap: () {
-                        Navigator.of(context).pop(); // Cierra el menú
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (_) => const PerfilEmpresaScreen(),
-                          ),
-                        );
-                      },
-                      title: const Text('Perfil de la Empresa'),
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.paid_outlined),
-                      onTap: () {
-                        Navigator.of(context).pop(); // Cierra el menú
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (_) => const ImpuestosScreen(),
-                          ),
-                        );
-                      },
-                      title: const Text('Impuestos'),
-                    ),
-                  ],
-                ),
+
+
 
 
                 const Divider(

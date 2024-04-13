@@ -56,52 +56,53 @@ class LoginPage extends StatelessWidget {
     String password = '';
 
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            colors: [
-              Color(0xFF177272),
-              Color(0xFF20aca8),
-              Color(0xFF68e0d6),
-            ],
+      body: SingleChildScrollView( // Agregado SingleChildScrollView
+        child: Container(
+          width: double.infinity,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              colors: [
+                Color(0xFF177272),
+                Color(0xFF20aca8),
+                Color(0xFF68e0d6),
+              ],
+            ),
           ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const SizedBox(
-              height: 80,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  FadeInUp(
-                    duration: const Duration(milliseconds: 1000),
-                    child: const Text(
-                      "InventoryPro",
-                      style: TextStyle(color: Colors.white, fontSize: 40),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  FadeInUp(
-                    duration: const Duration(milliseconds: 1300),
-                    child: const Text(
-                      "Bienvenid@",
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                  ),
-                ],
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const SizedBox(
+                height: 80,
               ),
-            ),
-            const SizedBox(height: 20),
-            Expanded(
-              child: Container(
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    FadeInUp(
+                      duration: const Duration(milliseconds: 1000),
+                      child: const Text(
+                        "InventoryPro",
+                        style: TextStyle(color: Colors.white, fontSize: 40),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    FadeInUp(
+                      duration: const Duration(milliseconds: 1300),
+                      child: const Text(
+                        "Bienvenid@",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              Container(
+                width: double.infinity,
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -214,8 +215,8 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );

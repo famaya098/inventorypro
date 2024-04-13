@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'my_drawer.dart';
 
-class ProductosScreen extends StatelessWidget {
-  const ProductosScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+class AgregarTransac extends StatelessWidget {
+  const AgregarTransac({super.key});
+Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Productos'),
+        title: const Text('Nueva Transacción'),
         leading: Builder(
           builder: (context) {
             return IconButton(
@@ -30,15 +28,14 @@ class ProductosScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: Text(
-                  'AGREGAR PRODUCTOS',
-                  style: TextStyle(fontSize: 24, color: Color.fromARGB(255, 0, 0, 0)),
-                ),
+              Text(
+                'DATOS DE ENTRADA Y SALIDA DE MEDICAMENTOS',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 24, color: const Color.fromARGB(255, 0, 0, 0)),
               ),
               SizedBox(height: 20),
               Text(
-                'Codigo:',
+                'Codigo Transacción:',
                 style: TextStyle(fontSize: 16),
               ),
               TextFormField(
@@ -48,45 +45,22 @@ class ProductosScreen extends StatelessWidget {
               ),
               SizedBox(height: 20),
               Text(
-                'Nombre:',
+                'Fecha:',
                 style: TextStyle(fontSize: 16),
               ),
               TextFormField(
                 decoration: InputDecoration(
-                  hintText: 'Ingrese el nombre del medicamento',
+                  hintText: '',
                 ),
+                keyboardType: TextInputType.datetime,
               ),
               SizedBox(height: 20),
               Text(
-                'Precio de Compra:',
-                style: TextStyle(fontSize: 16),
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  hintText: '\$: ',
-                  prefixText: '\$:',
-                ),
-                keyboardType: TextInputType.number,
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Precio de Venta:',
-                style: TextStyle(fontSize: 16),
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  hintText: '\$:',
-                  prefixText: '\$:',
-                ),
-                keyboardType: TextInputType.number,
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Unidad:',
+                'Medicamento:',
                 style: TextStyle(fontSize: 16),
               ),
               DropdownButton<String>(
-                items: <String>['Unidad 1', 'Unidad 2', 'Unidad 3']
+                items: <String>['Medicamento 1', 'Medicamento 2', 'Medicamento 3']
                     .map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
@@ -97,12 +71,49 @@ class ProductosScreen extends StatelessWidget {
               ),
               SizedBox(height: 20),
               Text(
-                'Cantidad de Unidades que Ingresa:',
+                'Stock:',
                 style: TextStyle(fontSize: 16),
               ),
               TextFormField(
                 decoration: InputDecoration(
-                  hintText: 'Ingrese la cantidad de unidades',
+                  hintText: '',
+                ),
+                keyboardType: TextInputType.number,
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Cantidad de Ingreso o Salida:',
+                style: TextStyle(fontSize: 16),
+              ),
+              TextFormField(
+                decoration: InputDecoration(
+                  hintText: 'Ingrese la cantidad de ingreso o salida',
+                ),
+                keyboardType: TextInputType.number,
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Tipo Transacción:',
+                style: TextStyle(fontSize: 16),
+              ),
+              DropdownButton<String>(
+                items: <String>['Entrada', 'Salida']
+                    .map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                onChanged: (_) {},
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Total Stock:',
+                style: TextStyle(fontSize: 16),
+              ),
+              TextFormField(
+                decoration: InputDecoration(
+                  hintText: '',
                 ),
                 keyboardType: TextInputType.number,
               ),

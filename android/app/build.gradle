@@ -23,9 +23,10 @@ if (flutterVersionName == null) {
 }
 
 android {
-0    namespace "com.example.inventorypro"
+    namespace "com.example.inventorypro"
     compileSdk flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
+    ndkVersion "25.1.8937393"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -49,6 +50,7 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        minSdkVersion 21
     }
 
     buildTypes {

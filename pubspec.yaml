@@ -47,10 +47,15 @@ flutter:
   assets:
     - assets/
     - assets/images/inven.jpg
-    - assets/images/ventas.jpg
+    - assets/images/agregar.png
     - assets/images/compras.png
     - assets/images/clientes.png
     - assets/images/estadistica.jpg
+    - assets/images/caja.png
+    - assets/images/carpeta.png
+    - assets/images/inventario.png
+    - assets/images/transaccion.png
+    - assets/images/cont.png
 
 
 fonts:
