@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:inventorypro/agregar_transac.dart';
 
 import 'my_drawer.dart';
-import 'productos_screen.dart'; // Importa la pantalla ProductosScreen
+import 'productos_screen.dart'; 
 
 void main() => runApp(MaterialApp(
   debugShowCheckedModeBanner: false,
@@ -12,7 +12,7 @@ void main() => runApp(MaterialApp(
 ));
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -102,14 +102,14 @@ class HomeScreen extends StatelessWidget {
                   GridView.count(
                     crossAxisCount: 2,
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     children: <Widget>[
                       promoCard(
                           'assets/images/caja.png', 'Agregar Productos', () {
                             // Navega a ProductosScreen al presionar la tarjeta
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => ProductosScreen()),
+                              MaterialPageRoute(builder: (context) => const ProductosScreen()),
                             );
                           }),
                       promoCard('assets/images/transaccion.png',
@@ -117,7 +117,7 @@ class HomeScreen extends StatelessWidget {
                             // Navega a Agregar Transaccion al presionar la tarjeta
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => AgregarTransac()),
+                              MaterialPageRoute(builder: (context) => const AgregarTransac()),
                             );
                           }),
                       promoCard('assets/images/inven.jpg', 'Reporte Stock', onTap),

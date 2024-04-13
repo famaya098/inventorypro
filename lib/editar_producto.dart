@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'my_drawer.dart';
 
 class EditarProducto extends StatelessWidget {
-  const EditarProducto({super.key});
+  const EditarProducto({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,106 +23,105 @@ class EditarProducto extends StatelessWidget {
             );
           },
         ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       drawer: const MyDrawer(),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const Padding(
-            padding: EdgeInsets.only(top: 28.0),
-            child: Center(
-              child: Text(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
                 'DATOS DEL PRODUCTO',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Color.fromARGB(255, 0, 0, 0),
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 24, color: Colors.blueAccent),
+              ),
+              const SizedBox(height: 20),
+              _buildTextFormField(label: 'Codigo:', hintText: ''),
+              const SizedBox(height: 20),
+              _buildTextFormField(label: 'Nombre:', hintText: ''),
+              const SizedBox(height: 20),
+              _buildTextFormField(label: 'Precio de compra:', hintText: ''),
+              const SizedBox(height: 20),
+              _buildTextFormField(label: 'Precio de venta:', hintText: ''),
+              const SizedBox(height: 20),
+              _buildTextFormField(label: 'Unidad:', hintText: ''),
+              const SizedBox(height: 20),
+              _buildTextFormField(label: 'Stock:', hintText: ''),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blueAccent,
+                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
                 ),
+                onPressed: () {
+                  // Acción al presionar el botón de guardar
+                },
+                child: const Text('Guardar', style: TextStyle(fontSize: 18)),
               ),
-            ),
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const SizedBox(height: 20),
-                  const Text(
-                    'Codigo:',
-                    style: TextStyle(fontSize: 16),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.redAccent,
+                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
                   ),
-                  TextFormField(
-                    decoration: const InputDecoration(labelText: 'Codigo:'),
-                  ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    'Nombre:',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(labelText: 'Nombre:'),
-                  ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    'Precio de compra:',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(labelText: 'Precio de Compra:'),
-                  ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    'Precio de venta:',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(labelText: 'Precio de Venta:'),
-                  ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    'Unidad:',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(labelText: 'Unidad:'),
-                  ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    'Stock:',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(labelText: 'Stock'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Acción al presionar el botón de guardar
-                    },
-                    child: const Text('Guardar'),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Acción al presionar el botón de eliminar
-                    },
-                    child: const Text('Eliminar'),
-                  ),
-                 const SizedBox(height: 16),
-                  OutlinedButton(
-                    onPressed: () {
-                      // Acción al presionar el botón de regresar
-                      Navigator.pop(context);
-                    },
-                    child: const Text('Regresar'),
-                  ),
-                ],
+                ),
+                onPressed: () {
+                  // Acción al presionar el botón de eliminar
+                },
+                child: const Text('Eliminar', style: TextStyle(fontSize: 18)),
               ),
-            ),
+              const SizedBox(height: 16),
+              OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: Colors.blueAccent, 
+                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    side: const BorderSide(color: Colors.blueAccent),
+                  ),
+                ),
+                onPressed: () {
+                  // Acción al presionar el botón de regresar
+                  Navigator.pop(context);
+                },
+                child: const Text('Regresar', style: TextStyle(fontSize: 18)),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
+    );
+  }
+
+  Widget _buildTextFormField({required String label, required String hintText}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(fontSize: 16, color: Colors.black87),
+        ),
+        const SizedBox(height: 8),
+        TextFormField(
+          style: const TextStyle(fontSize: 16),
+          decoration: InputDecoration(
+            hintText: hintText,
+            contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

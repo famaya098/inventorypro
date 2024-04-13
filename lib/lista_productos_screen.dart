@@ -4,7 +4,7 @@ import 'productos_screen.dart'; // Importa la pantalla ProductosScreen
 import 'editar_producto.dart'; // Importa la pantalla EditarProducto
 
 class ListaProductosScreen extends StatelessWidget {
-  const ListaProductosScreen({Key? key}) : super(key: key);
+  const ListaProductosScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +28,8 @@ class ListaProductosScreen extends StatelessWidget {
       drawer: const MyDrawer(),
       body: CustomScrollView(
         slivers: [
-          SliverPadding(
-             padding: const EdgeInsets.all(8.0),
+          const SliverPadding(
+             padding: EdgeInsets.all(8.0),
             sliver: SliverToBoxAdapter(
               child: Center(
                 child: Text(
@@ -44,7 +44,7 @@ class ListaProductosScreen extends StatelessWidget {
             sliver: SliverToBoxAdapter(
               child: Row(
                 children: [
-                  Expanded(
+                  const Expanded(
                     child: TextField(
                       decoration: InputDecoration(
                         labelText: 'Buscar producto',
@@ -52,29 +52,29 @@ class ListaProductosScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   ElevatedButton(
                     onPressed: () {
                       // Acción al presionar el botón de buscar
                     },
-                    child: Text('Buscar'),
+                    child: const Text('Buscar'),
                   ),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   OutlinedButton(
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => ProductosScreen()),
+                        MaterialPageRoute(builder: (context) => const ProductosScreen()),
                       );
                     },
-                    child: Text('Agregar'),
+                    child: const Text('Agregar'),
                   ),
 
                 ],
               ),
             ),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: Divider(),
           ),
           SliverList(
@@ -82,7 +82,7 @@ class ListaProductosScreen extends StatelessWidget {
               (BuildContext context, int index) {
                 return ListTile(
                   title: Text('Nombre del producto ${index + 1}'),
-                  subtitle: Column(
+                  subtitle: const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Código: 12345'),
@@ -96,10 +96,10 @@ class ListaProductosScreen extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => EditarProducto()),
+                        MaterialPageRoute(builder: (context) => const EditarProducto()),
                       );
                     },
-                    child: IconButton(
+                    child: const IconButton(
                       icon: Icon(Icons.edit),
                       onPressed: null, // Puedes quitar esta línea si no necesitas una acción
                     ),

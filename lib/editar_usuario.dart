@@ -75,17 +75,17 @@ class EditarUsuario extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  Text(
+                  const Text(
                     'Apellido:',
                     style: TextStyle(fontSize: 16),
                   ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Apellido',
                     ),
                   ),
-                  SizedBox(height: 20),
-                  Text(
+                  const SizedBox(height: 20),
+                  const Text(
                     'Tipo de Permiso:',
                     style: TextStyle(fontSize: 16),
                   ), 
@@ -100,59 +100,59 @@ class EditarUsuario extends StatelessWidget {
                     }).toList(),
                     onChanged: (_) {},
                   ),
-                  SizedBox(height: 20),
-                  Text(
+                  const SizedBox(height: 20),
+                  const Text(
                     'Dirección:',
                     style: TextStyle(fontSize: 16),
                   ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Dirección',
                     ),
                   ),
-                  SizedBox(height: 20),
-                  Text(
+                  const SizedBox(height: 20),
+                  const Text(
                     'Fecha de Nacimiento:',
                     style: TextStyle(fontSize: 16),
                   ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Fecha Nacimiento',
                     ),
                   ),
-                  SizedBox(height: 20),
-                  Text(
+                  const SizedBox(height: 20),
+                  const Text(
                     'Contraseña:',
                     style: TextStyle(fontSize: 16),
                   ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Contraseña',
                     ),
                   ),
-                  SizedBox(height: 20),
-                  Text(
+                  const SizedBox(height: 20),
+                  const Text(
                     'Email:',
                     style: TextStyle(fontSize: 16),
                   ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Email',
                     ),
                   ),
-                  SizedBox(height: 20),
-                  Text(
+                  const SizedBox(height: 20),
+                  const Text(
                     'Teléfono:',
                     style: TextStyle(fontSize: 16),
                   ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Teléfono',
                     ),
                     keyboardType: TextInputType.phone,
                   ),
                   const SizedBox(height: 20),
-                  Text(
+                  const Text(
                     'Estado:',
                     style: TextStyle(color: Color.fromARGB(69, 0, 0, 0)),
                   ),
@@ -167,23 +167,23 @@ class EditarUsuario extends StatelessWidget {
                     }).toList(),
                     onChanged: (_) {},
                   ),
-                  SizedBox(height: 20),
-                  Text(
+                  const SizedBox(height: 20),
+                  const Text(
                     'Fecha de Creación:',
                     style: TextStyle(fontSize: 16),
                   ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Fecha Creación',
                     ),
                   ),
-                  SizedBox(height: 20),
-                  Text(
+                  const SizedBox(height: 20),
+                  const Text(
                     'Fecha de Actualización:',
                     style: TextStyle(fontSize: 16),
                   ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Fecha Actualización',
                     ),
                   ),
@@ -192,14 +192,14 @@ class EditarUsuario extends StatelessWidget {
                     onPressed: () {
                       // Acción al presionar el botón de Guardar
                     },
-                    child: Text('Guardar'),
+                    child: const Text('Guardar'),
                   ),
                   const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {
                       // Acción al presionar el botón de Eliminar
                     },
-                    child: Text('Eliminar'),
+                    child: const Text('Eliminar'),
                   ),
                   const SizedBox(height: 16),
                   OutlinedButton(
@@ -207,7 +207,7 @@ class EditarUsuario extends StatelessWidget {
                       // Acción al presionar el botón de Regresar
                       Navigator.pop(context);
                     },
-                    child: Text('Regresar'),
+                    child: const Text('Regresar'),
                   ),
                 ],
               ),

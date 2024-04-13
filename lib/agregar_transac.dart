@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'my_drawer.dart';
 
 class AgregarTransac extends StatelessWidget {
   const AgregarTransac({super.key});
-@override
+  
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -21,6 +23,9 @@ class AgregarTransac extends StatelessWidget {
             );
           },
         ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       drawer: const MyDrawer(),
       body: SingleChildScrollView(
@@ -29,112 +34,63 @@ class AgregarTransac extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'DATOS DE ENTRADA Y SALIDA DE MEDICAMENTOS',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 24, color: Color.fromARGB(255, 0, 0, 0)),
+                style: TextStyle(fontSize: 24, color: Colors.blueAccent),
               ),
               const SizedBox(height: 20),
-              const Text(
-                'Codigo Transacción:',
-                style: TextStyle(fontSize: 16),
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  hintText: '',
-                ),
-              ),
+              _buildTextFormField(label: 'Codigo Transacción:', hintText: ''),
               const SizedBox(height: 20),
-              const Text(
-                'Fecha:',
-                style: TextStyle(fontSize: 16),
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  hintText: '',
-                ),
-                keyboardType: TextInputType.datetime,
-              ),
+              _buildTextFormField(label: 'Fecha:', hintText: '', keyboardType: TextInputType.datetime),
               const SizedBox(height: 20),
-              const Text(
-                'Medicamento:',
-                style: TextStyle(fontSize: 16),
-              ),
-              DropdownButton<String>(
-                items: <String>['Medicamento 1', 'Medicamento 2', 'Medicamento 3']
-                    .map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                onChanged: (_) {},
-              ),
+              _buildDropdownButton(label: 'Medicamento:', items: ['Medicamento 1', 'Medicamento 2', 'Medicamento 3']),
               const SizedBox(height: 20),
-              const Text(
-                'Stock:',
-                style: TextStyle(fontSize: 16),
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  hintText: '',
-                ),
-                keyboardType: TextInputType.number,
-              ),
+              _buildTextFormField(label: 'Stock:', hintText: '', keyboardType: TextInputType.number),
               const SizedBox(height: 20),
-              const Text(
-                'Cantidad de Ingreso o Salida:',
-                style: TextStyle(fontSize: 16),
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  hintText: 'Ingrese la cantidad de ingreso o salida',
-                ),
-                keyboardType: TextInputType.number,
-              ),
+              _buildTextFormField(label: 'Cantidad de Ingreso o Salida:', hintText: '', keyboardType: TextInputType.number),
               const SizedBox(height: 20),
-              const Text(
-                'Tipo Transacción:',
-                style: TextStyle(fontSize: 16),
-              ),
-              DropdownButton<String>(
-                items: <String>['Entrada', 'Salida']
-                    .map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                onChanged: (_) {},
-              ),
+              _buildDropdownButton(label: 'Tipo Transacción:', items: ['Entrada', 'Salida']),
               const SizedBox(height: 20),
-              const Text(
-                'Total Stock:',
-                style: TextStyle(fontSize: 16),
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  hintText: '',
-                ),
-                keyboardType: TextInputType.number,
-              ),
+              _buildTextFormField(label: 'Total Stock:', hintText: '', keyboardType: TextInputType.number),
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blueAccent,
+                      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
                     onPressed: () {
                       // Acción al presionar el botón de guardar
                     },
-                    child: const Text('Guardar'),
+                    child: const Text(
+                      'Guardar',
+                      style: TextStyle(fontSize: 18),
+                    ),
                   ),
                   const SizedBox(width: 20),
                   OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: Colors.blueAccent, 
+                      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        side: BorderSide(color: Colors.blueAccent),
+                      ),
+                    ),
                     onPressed: () {
                       // Acción al presionar el botón de regresar
                       Navigator.pop(context);
                     },
-                    child: const Text('Regresar'),
+                    child: const Text(
+                      'Regresar',
+                      style: TextStyle(fontSize: 18),
+                    ),
                   ),
                 ],
               ),
@@ -142,6 +98,60 @@ class AgregarTransac extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildTextFormField({required String label, required String hintText, TextInputType? keyboardType}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(fontSize: 16, color: Colors.black87),
+        ),
+        const SizedBox(height: 8),
+        TextFormField(
+          style: const TextStyle(fontSize: 16),
+          decoration: InputDecoration(
+            hintText: hintText,
+            contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+          ),
+          keyboardType: keyboardType,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDropdownButton({required String label, required List<String> items}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(fontSize: 16, color: Colors.black87),
+        ),
+        const SizedBox(height: 8),
+        DropdownButton<String>(
+          isExpanded: true,
+          underline: Container(
+            height: 2,
+            color: Colors.blueAccent,
+          ),
+          icon: const Icon(Icons.arrow_drop_down, color: Colors.white), // Cambiamos el color del icono
+          iconSize: 36,
+          style: const TextStyle(fontSize: 16, color: Colors.black87),
+          items: items.map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+          onChanged: (_) {},
+        ),
+      ],
     );
   }
 }

@@ -3,7 +3,7 @@ import 'package:inventorypro/editar_usuario.dart';
 import 'my_drawer.dart';
 
 class ListaUsuariosScreen extends StatelessWidget {
-  const ListaUsuariosScreen({Key? key}) : super(key: key);
+  const ListaUsuariosScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +27,8 @@ class ListaUsuariosScreen extends StatelessWidget {
       drawer: const MyDrawer(),
       body: CustomScrollView(
         slivers: [
-          SliverPadding(
-            padding: const EdgeInsets.all(8.0),
+          const SliverPadding(
+            padding: EdgeInsets.all(8.0),
             sliver: SliverToBoxAdapter(
               child: Center(
                 child: Text(
@@ -43,7 +43,7 @@ class ListaUsuariosScreen extends StatelessWidget {
             sliver: SliverToBoxAdapter(
               child: Row(
                 children: [
-                  Expanded(
+                  const Expanded(
                     child: TextField(
                       decoration: InputDecoration(
                         labelText: 'Buscar usuario',
@@ -51,18 +51,18 @@ class ListaUsuariosScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   ElevatedButton(
                     onPressed: () {
                       // Acción al presionar el botón de buscar
                     },
-                    child: Text('Buscar'),
+                    child: const Text('Buscar'),
                   ),
                 ],
               ),
             ),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: Divider(),
           ),
           SliverList(
@@ -146,10 +146,10 @@ class ListaUsuariosScreen extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => EditarUsuario()),
+                        MaterialPageRoute(builder: (context) => const EditarUsuario()),
                       );
                     },
-                    child: IconButton(
+                    child: const IconButton(
                       icon: Icon(Icons.edit),
                       onPressed: null, // Puedes quitar esta línea si no necesitas una acción
                     ),
