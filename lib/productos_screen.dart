@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'my_drawer.dart';
@@ -62,7 +64,7 @@ class ProductosScreen extends StatelessWidget {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blueAccent,
-                      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -78,11 +80,11 @@ class ProductosScreen extends StatelessWidget {
                   const SizedBox(width: 20),
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                      foregroundColor: Colors.blueAccent, padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                      foregroundColor: Colors.blueAccent, padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      side: BorderSide(color: Colors.blueAccent),
+                      side: const BorderSide(color: Colors.blueAccent),
                     ),
                     onPressed: () {
                       // Acción al presionar el botón de regresar

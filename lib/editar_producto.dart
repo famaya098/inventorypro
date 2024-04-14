@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'my_drawer.dart';
 
 class EditarProducto extends StatelessWidget {
-  const EditarProducto({Key? key});
+  const EditarProducto({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class EditarProducto extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'DATOS DEL PRODUCTO',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 24, color: Colors.blueAccent),

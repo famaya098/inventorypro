@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'my_drawer.dart';
 
-class ReporteComprasScreen extends StatelessWidget {
-  const ReporteComprasScreen({super.key});
+class TransacReali extends StatelessWidget {
+  const TransacReali({super.key});
 
   @override
   Widget build(BuildContext context) {

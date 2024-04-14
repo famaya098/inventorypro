@@ -2,19 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:inventorypro/agregar_usuario_screen.dart';
 import 'package:inventorypro/lista_usuarios.dart';
-
 import 'package:inventorypro/home_screen.dart';
-
 import 'package:inventorypro/login_page.dart';
 import 'package:inventorypro/lista_productos_screen.dart';
-
 import 'package:inventorypro/profile_screen.dart';
-
-import 'package:inventorypro/reporte_ventas_screen%20copy.dart';
-import 'package:inventorypro/reporte_compras_screen.dart';
+import 'package:inventorypro/reporte_inventario_screen.dart';
+import 'package:inventorypro/reporte_transac.dart';
 import 'package:inventorypro/text_icon_button.dart';
-
-
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -63,18 +57,8 @@ class MyDrawer extends StatelessWidget {
                   icon: Icons.inventory_outlined,
                   label: 'Productos',
                 ),
-
-                TextIconButton(
-                  onPressed: () => Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (_) => const HomeScreen(),
-                    ),
-                  ),
-                  icon: Icons.compare_arrows,
-                  label: 'Transacciones',
-                ),
                 
- ExpansionTile(
+                ExpansionTile(
                   leading: const Icon(Icons.folder),
                   title: const Text('Reportes'),
                   children: [
@@ -84,7 +68,7 @@ class MyDrawer extends StatelessWidget {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (_) => const ReporteVentasScreen(),
+                            builder: (_) => const ReporteTransac(),
                           ),
                         );
                       },
@@ -96,7 +80,7 @@ class MyDrawer extends StatelessWidget {
                         Navigator.of(context).pop(); // Cierra el menú
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (_) => const ReporteComprasScreen(),
+                            builder: (_) => const ReporteInventarioScreen(),
                           ),
                         );
                       },
@@ -137,15 +121,7 @@ class MyDrawer extends StatelessWidget {
                     ),                              
                   ],
                 ),
-                
-
     
-
-
-
-
-
-
                 const Divider(
                   height: 50,
                   color: Colors.black,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:inventorypro/agregar_transac.dart';
+import 'package:inventorypro/reporte_inventario_screen.dart';
+import 'package:inventorypro/reporte_transac.dart';
 
 import 'my_drawer.dart';
 import 'productos_screen.dart'; 
@@ -117,12 +119,34 @@ class HomeScreen extends StatelessWidget {
                             // Navega a Agregar Transaccion al presionar la tarjeta
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const AgregarTransac()),
+                              MaterialPageRoute(builder: (context) {
+                                const agregarTransac = AgregarTransac();
+                                return agregarTransac;
+                              }),
                             );
                           }),
-                      promoCard('assets/images/inven.jpg', 'Reporte Stock', onTap),
+                      promoCard('assets/images/inven.jpg', 'Reporte Stock',  () {
+                            // Navega a Agregar Transaccion al presionar la tarjeta
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) {
+                                const agregarTransac = ReporteInventarioScreen();
+                                return agregarTransac;
+                              }),
+                            );
+                          }),
                       promoCard('assets/images/carpeta.png',
-                              'Reporte Transacción', onTap),
+                              'Reporte Transacción',() {
+                            // Navega a Agregar Transaccion al presionar la tarjeta
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) {
+                                const agregarTransac = ReporteTransac();
+                                return agregarTransac;
+                              }),
+                            );
+                            }),
+                            
                     ],
                   ),
                   const SizedBox(
@@ -140,34 +164,35 @@ class HomeScreen extends StatelessWidget {
   Widget promoCard(String image, String title, Function() onTap) {
     return GestureDetector(
       onTap: onTap,
-      child: AspectRatio(
-        aspectRatio: 2.62 / 3,
+      child: Container(
+        margin: const EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          image: DecorationImage(fit: BoxFit.cover, image: AssetImage(image)),
+        ),
         child: Container(
-          margin: const EdgeInsets.all(8.0),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            image: DecorationImage(fit: BoxFit.cover, image: AssetImage(image)),
-          ),
-          child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                gradient: LinearGradient(begin: Alignment.bottomRight, stops: const [
-                  0.1,
-                  0.9
-                ], colors: [
-                  Colors.black.withOpacity(.8),
-                  Colors.black.withOpacity(.1)
-                ])),
-            child: Align(
-              alignment: Alignment.bottomLeft,
-              child: Padding(
+              borderRadius: BorderRadius.circular(20),
+              gradient: LinearGradient(begin: Alignment.bottomRight, stops: const [
+                0.1,
+                0.9
+              ], colors: [
+                Colors.black.withOpacity(.8),
+                Colors.black.withOpacity(.1)
+              ])),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Text(
                   title,
                   style: const TextStyle(color: Colors.white, fontSize: 20),
+                  textAlign: TextAlign.center,
                 ),
               ),
-            ),
+            ],
           ),
         ),
       ),
@@ -176,6 +201,5 @@ class HomeScreen extends StatelessWidget {
 
   void onTap() {
     // Acción que deseas realizar cuando se presiona una tarjeta promocional
-    print("Tarjeta promocional presionada");
   }
 }

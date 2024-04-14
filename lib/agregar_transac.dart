@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:inventorypro/home_screen.dart';
 import 'my_drawer.dart';
+import 'productos_carrito.dart'; // Importa el archivo donde está definida la pantalla ProductosCarrito
 
 class AgregarTransac extends StatelessWidget {
   const AgregarTransac({super.key});
@@ -34,8 +36,8 @@ class AgregarTransac extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'DATOS DE ENTRADA Y SALIDA DE MEDICAMENTOS',
+              const Text(
+                'DATOS DE ENTRADA Y SALIDA DE PRODUCTOS',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 24, color: Colors.blueAccent),
               ),
@@ -44,15 +46,20 @@ class AgregarTransac extends StatelessWidget {
               const SizedBox(height: 20),
               _buildTextFormField(label: 'Fecha:', hintText: '', keyboardType: TextInputType.datetime),
               const SizedBox(height: 20),
-              _buildDropdownButton(label: 'Medicamento:', items: ['Medicamento 1', 'Medicamento 2', 'Medicamento 3']),
-              const SizedBox(height: 20),
-              _buildTextFormField(label: 'Stock:', hintText: '', keyboardType: TextInputType.number),
-              const SizedBox(height: 20),
-              _buildTextFormField(label: 'Cantidad de Ingreso o Salida:', hintText: '', keyboardType: TextInputType.number),
-              const SizedBox(height: 20),
               _buildDropdownButton(label: 'Tipo Transacción:', items: ['Entrada', 'Salida']),
               const SizedBox(height: 20),
-              _buildTextFormField(label: 'Total Stock:', hintText: '', keyboardType: TextInputType.number),
+              SizedBox(
+                width: double.infinity, // Para ocupar todo el ancho de la pantalla
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ProductosCarrito()),
+                    );
+                  },
+                  child: const Text('Agregar Producto'),
+                ),
+              ),
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -60,7 +67,7 @@ class AgregarTransac extends StatelessWidget {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blueAccent,
-                      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -77,18 +84,19 @@ class AgregarTransac extends StatelessWidget {
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(
                       foregroundColor: Colors.blueAccent, 
-                      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
-                        side: BorderSide(color: Colors.blueAccent),
+                        side: const BorderSide(color: Colors.blueAccent),
                       ),
                     ),
                     onPressed: () {
-                      // Acción al presionar el botón de regresar
-                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const HomeScreen()),
+                      );
                     },
-                    child: const Text(
-                      'Regresar',
+                    child: const Text('Regresar',
                       style: TextStyle(fontSize: 18),
                     ),
                   ),
