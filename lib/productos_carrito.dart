@@ -55,7 +55,7 @@ class ProductosCarrito extends StatelessWidget {
                   const SizedBox(width: 8),
                   ElevatedButton(
                     onPressed: () {
-                      // Acción al presionar el botón de buscar
+                      
                     },
                     child: const Text('Buscar'),
                   ),
@@ -90,7 +90,7 @@ class ProductosCarrito extends StatelessWidget {
                   ),
                 );
               },
-              childCount: 4, // Cambia esto según la cantidad de productos
+              childCount: 4,
             ),
           ),
           SliverToBoxAdapter(

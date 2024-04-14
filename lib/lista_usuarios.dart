@@ -54,7 +54,7 @@ class ListaUsuariosScreen extends StatelessWidget {
                   const SizedBox(width: 8),
                   ElevatedButton(
                     onPressed: () {
-                      // Acción al presionar el botón de buscar
+                      
                     },
                     child: const Text('Buscar'),
                   ),
@@ -156,7 +156,7 @@ class ListaUsuariosScreen extends StatelessWidget {
                   ),
                 );
               },
-              childCount: 3, // Mostrar tres usuarios quemados
+              childCount: 3, 
             ),
           ),
         ],

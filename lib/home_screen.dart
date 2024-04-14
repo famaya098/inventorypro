@@ -108,7 +108,7 @@ class HomeScreen extends StatelessWidget {
                     children: <Widget>[
                       promoCard(
                           'assets/images/caja.png', 'Agregar Productos', () {
-                            // Navega a ProductosScreen al presionar la tarjeta
+                            
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => const ProductosScreen()),
@@ -116,7 +116,7 @@ class HomeScreen extends StatelessWidget {
                           }),
                       promoCard('assets/images/transaccion.png',
                               'Realizar Transacción', () {
-                            // Navega a Agregar Transaccion al presionar la tarjeta
+                            
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) {
@@ -126,7 +126,7 @@ class HomeScreen extends StatelessWidget {
                             );
                           }),
                       promoCard('assets/images/inven.jpg', 'Reporte Stock',  () {
-                            // Navega a Agregar Transaccion al presionar la tarjeta
+                            
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) {
@@ -137,7 +137,7 @@ class HomeScreen extends StatelessWidget {
                           }),
                       promoCard('assets/images/carpeta.png',
                               'Reporte Transacción',() {
-                            // Navega a Agregar Transaccion al presionar la tarjeta
+                           
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) {
@@ -200,6 +200,6 @@ class HomeScreen extends StatelessWidget {
   }
 
   void onTap() {
-    // Acción que deseas realizar cuando se presiona una tarjeta promocional
+    
   }
 }

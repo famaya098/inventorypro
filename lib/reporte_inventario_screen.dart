@@ -38,7 +38,7 @@ class ReporteInventarioScreen extends StatelessWidget {
             },
           ),
         ],
-        backgroundColor: const Color(0xFF027A70), // Color de la AppBar
+        backgroundColor: const Color(0xFF027A70), 
         elevation: 0,
         systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
@@ -81,7 +81,7 @@ class ReporteInventarioScreen extends StatelessWidget {
                 const SizedBox(width: 8),
                 TextButton.icon(
                   onPressed: () {
-                    // Acción al presionar el botón de imprimir
+                    
                   },
                   style: TextButton.styleFrom(
                     backgroundColor: const Color(0xFF027A70),

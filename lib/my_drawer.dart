@@ -65,7 +65,7 @@ class MyDrawer extends StatelessWidget {
                     ListTile(
                       leading: const Icon(Icons.description),
                       onTap: () {
-                        Navigator.of(context).pop(); // Cierra el menú
+                        Navigator.of(context).pop(); 
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
                             builder: (_) => const ReporteTransac(),
@@ -77,7 +77,7 @@ class MyDrawer extends StatelessWidget {
                     ListTile(
                       leading: const Icon(Icons.library_books),
                       onTap: () {
-                        Navigator.of(context).pop(); // Cierra el menú
+                        Navigator.of(context).pop(); 
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
                             builder: (_) => const ReporteInventarioScreen(),
@@ -98,7 +98,7 @@ class MyDrawer extends StatelessWidget {
                     ListTile(
                       leading: const Icon(Icons.local_library),
                       onTap: () {
-                        Navigator.of(context).pop(); // Cierra el menú
+                        Navigator.of(context).pop(); 
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
                             builder: (_) => const ListaUsuariosScreen(),
@@ -110,7 +110,7 @@ class MyDrawer extends StatelessWidget {
                           ListTile(
                       leading: const Icon(Icons.person_add),
                       onTap: () {
-                        Navigator.of(context).pop(); // Cierra el menú
+                        Navigator.of(context).pop(); 
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
                             builder: (_) => const AgregarUsuariosScreen(),

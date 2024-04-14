@@ -34,7 +34,7 @@ class AgregarTransac extends StatelessWidget {
             },
           ),
         ],
-        backgroundColor: const Color(0xFF027A70), // Color de la AppBar
+        backgroundColor: const Color(0xFF027A70), 
         elevation: 0,
         systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
@@ -72,10 +72,10 @@ class AgregarTransac extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  // Acción al presionar el botón de guardar
+                  
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF027A70), // Color del botón "Guardar"
+                  backgroundColor: const Color(0xFF027A70), 
                   padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -132,7 +132,7 @@ class AgregarTransac extends StatelessWidget {
             height: 2,
             color: const Color(0xFF027A70),
           ),
-          icon: const Icon(Icons.arrow_drop_down, color: Colors.white), // Cambiamos el color del icono
+          icon: const Icon(Icons.arrow_drop_down, color: Colors.white), 
           iconSize: 36,
           style: const TextStyle(fontSize: 16, color: Colors.black87),
           items: items.map((String value) {

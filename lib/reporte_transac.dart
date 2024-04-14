@@ -38,7 +38,7 @@ class ReporteTransac extends StatelessWidget {
             },
           ),
         ],
-        backgroundColor: const Color(0xFF027A70), // Color de la AppBar
+        backgroundColor: const Color(0xFF027A70), 
         elevation: 0,
         systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
@@ -80,7 +80,7 @@ class ReporteTransac extends StatelessWidget {
                 Expanded(
                   child: TextButton.icon(
                     onPressed: () {
-                      // Acción al presionar el botón de buscar
+                      
                     },
                     style: TextButton.styleFrom(
                       backgroundColor: const Color(0xFF027A70),
@@ -99,7 +99,7 @@ class ReporteTransac extends StatelessWidget {
                 Expanded(
                   child: TextButton.icon(
                     onPressed: () {
-                      // Acción al presionar el botón de imprimir
+                      
                     },
                     style: TextButton.styleFrom(
                       backgroundColor: const Color(0xFF027A70),
