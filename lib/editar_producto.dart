@@ -3,41 +3,58 @@ import 'package:flutter/services.dart';
 import 'my_drawer.dart';
 
 class EditarProducto extends StatelessWidget {
-  const EditarProducto({super.key});
+  const EditarProducto({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Datos del producto'),
-        leading: Builder(
-          builder: (context) {
-            return IconButton(
-              icon: const Icon(
-                Icons.menu,
-                color: Colors.black87,
-              ),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-            );
+        title: const Text('InventoryPro'),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
           },
         ),
-        backgroundColor: Colors.white,
+        actions: [
+          Builder(
+            builder: (context) {
+              return IconButton(
+                icon: const Icon(
+                  Icons.menu,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+              );
+            },
+          ),
+        ],
+        backgroundColor: const Color(0xFF027A70), // Color de la AppBar
         elevation: 0,
-        systemOverlayStyle: SystemUiOverlayStyle.dark,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       drawer: const MyDrawer(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
-                'DATOS DEL PRODUCTO',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 24, color: Colors.blueAccent),
+              const SizedBox(height: 20),
+              const Center(
+                child: Text(
+                  'DATOS DEL PRODUCTO',
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF027A70),
+                  ),
+                ),
               ),
               const SizedBox(height: 20),
               _buildTextFormField(label: 'Codigo:', hintText: ''),
@@ -52,48 +69,39 @@ class EditarProducto extends StatelessWidget {
               const SizedBox(height: 20),
               _buildTextFormField(label: 'Stock:', hintText: ''),
               const SizedBox(height: 16),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent,
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      // Acción al presionar el botón de guardar
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF027A70), // Color de fondo del botón de guardar
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                    ),
+                    icon: const Icon(Icons.save, size: 24, color: Colors.white), // Icono blanco
+                    label: const Text('Guardar', style: TextStyle(fontSize: 18, color: Colors.white)), // Texto blanco
                   ),
-                ),
-                onPressed: () {
-                  // Acción al presionar el botón de guardar
-                },
-                child: const Text('Guardar', style: TextStyle(fontSize: 18)),
-              ),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.redAccent,
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+                  const SizedBox(width: 16),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      // Acción al presionar el botón de eliminar
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.redAccent,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                    ),
+                    icon: const Icon(Icons.delete, size: 24),
+                    label: const Text('Eliminar', style: TextStyle(fontSize: 18)), // Por defecto, el texto es negro
                   ),
-                ),
-                onPressed: () {
-                  // Acción al presionar el botón de eliminar
-                },
-                child: const Text('Eliminar', style: TextStyle(fontSize: 18)),
-              ),
-              const SizedBox(height: 16),
-              OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: Colors.blueAccent, 
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    side: const BorderSide(color: Colors.blueAccent),
-                  ),
-                ),
-                onPressed: () {
-                  // Acción al presionar el botón de regresar
-                  Navigator.pop(context);
-                },
-                child: const Text('Regresar', style: TextStyle(fontSize: 18)),
+                ],
               ),
             ],
           ),

@@ -1,5 +1,3 @@
-// ignore_for_file: use_key_in_widget_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'my_drawer.dart';
@@ -11,94 +9,83 @@ class ProductosScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Productos'),
-        leading: Builder(
-          builder: (context) {
-            return IconButton(
-              icon: const Icon(
-                Icons.menu,
-                color: Colors.black87,
-              ),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-              padding: const EdgeInsets.only(left: 16),
-            );
+        title: const Text('InventoryPro'),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
           },
         ),
-        backgroundColor: Colors.white,
+        actions: [
+          Builder(
+            builder: (context) {
+              return IconButton(
+                icon: const Icon(
+                  Icons.menu,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+              );
+            },
+          ),
+        ],
+        backgroundColor: const Color(0xFF027A70), // Color de la AppBar
         elevation: 0,
-        systemOverlayStyle: SystemUiOverlayStyle.dark,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       drawer: const MyDrawer(),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Center(
+              child: Text(
                 'AGREGAR PRODUCTOS',
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
-                  color: Colors.blueAccent,
+                  color: Color(0xFF027A70),
                 ),
               ),
-              const SizedBox(height: 30),
-              _buildTextFormField(label: 'Codigo:', hintText: ''),
-              const SizedBox(height: 20),
-              _buildTextFormField(label: 'Nombre:', hintText: ''),
-              const SizedBox(height: 20),
-              _buildTextFormField(label: 'Precio de Compra:', hintText: '', prefixText: '\$ '),
-              const SizedBox(height: 20),
-              _buildTextFormField(label: 'Precio de Venta:', hintText: '', prefixText: '\$ '),
-              const SizedBox(height: 20),
-              _buildDropdownButton(label: 'Unidad:', items: ['Unidad 1', 'Unidad 2', 'Unidad 3']),
-              const SizedBox(height: 20),
-              _buildTextFormField(label: 'Cantidad de Unidades que Ingresa:', hintText: ''),
-              const SizedBox(height: 40),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blueAccent,
-                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                    onPressed: () {
-                      // Acción al presionar el botón de guardar
-                    },
-                    child: const Text(
-                      'Guardar',
-                      style: TextStyle(fontSize: 18),
-                    ),
+            ),
+            const SizedBox(height: 30),
+            _buildTextFormField(label: 'Código:', hintText: ''),
+            const SizedBox(height: 20),
+            _buildTextFormField(label: 'Nombre:', hintText: ''),
+            const SizedBox(height: 20),
+            _buildTextFormField(label: 'Precio de Compra:', hintText: '', prefixText: '\$ '),
+            const SizedBox(height: 20),
+            _buildTextFormField(label: 'Precio de Venta:', hintText: '', prefixText: '\$ '),
+            const SizedBox(height: 20),
+            _buildDropdownButton(label: 'Unidad:', items: ['Unidad 1', 'Unidad 2', 'Unidad 3']),
+            const SizedBox(height: 20),
+            _buildTextFormField(label: 'Cantidad de Unidades que Ingresa:', hintText: ''),
+            const SizedBox(height: 40),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  // Acción al presionar el botón de guardar
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF027A70), // Color del botón "Guardar"
+                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
                   ),
-                  const SizedBox(width: 20),
-                  OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: Colors.blueAccent, padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      side: const BorderSide(color: Colors.blueAccent),
-                    ),
-                    onPressed: () {
-                      // Acción al presionar el botón de regresar
-                      Navigator.pop(context);
-                    },
-                    child: const Text(
-                      'Regresar',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ),
-                ],
+                ),
+                child: const Text(
+                  'Guardar',
+                  style: TextStyle(fontSize: 18, color: Colors.white),
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
