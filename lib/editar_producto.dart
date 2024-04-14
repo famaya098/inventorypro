@@ -69,24 +69,24 @@ class EditarProducto extends StatelessWidget {
               const SizedBox(height: 20),
               _buildTextFormField(label: 'Stock:', hintText: ''),
               const SizedBox(height: 16),
-              Row(
+              Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton.icon(
                     onPressed: () {
-                      // Acción al presionar el botón de guardar
+                     
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF027A70), // Color de fondo del botón de guardar
+                      backgroundColor: const Color(0xFF027A70), 
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
                       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                     ),
-                    icon: const Icon(Icons.save, size: 24, color: Colors.white), // Icono blanco
-                    label: const Text('Guardar', style: TextStyle(fontSize: 18, color: Colors.white)), // Texto blanco
+                    icon: const Icon(Icons.save, size: 24, color: Colors.white),
+                    label: const Text('Guardar', style: TextStyle(fontSize: 18, color: Colors.white)), 
                   ),
-                  const SizedBox(width: 16),
+                  const SizedBox(height: 16),
                   ElevatedButton.icon(
                     onPressed: () {
                       // Acción al presionar el botón de eliminar
@@ -98,8 +98,8 @@ class EditarProducto extends StatelessWidget {
                       ),
                       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                     ),
-                    icon: const Icon(Icons.delete, size: 24),
-                    label: const Text('Eliminar', style: TextStyle(fontSize: 18)), // Por defecto, el texto es negro
+                    icon: const Icon(Icons.delete, size: 24, color: Colors.white), 
+                    label: const Text('Eliminar', style: TextStyle(fontSize: 18, color: Colors.white)), 
                   ),
                 ],
               ),

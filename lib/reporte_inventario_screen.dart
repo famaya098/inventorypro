@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:inventorypro/home_screen.dart';
 import 'my_drawer.dart';
 
 class ReporteInventarioScreen extends StatelessWidget {
@@ -16,7 +17,10 @@ class ReporteInventarioScreen extends StatelessWidget {
             color: Colors.white,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()),
+            );
           },
         ),
         actions: [

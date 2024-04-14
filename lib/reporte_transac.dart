@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'my_drawer.dart';
+import 'home_screen.dart';
 
 class ReporteTransac extends StatelessWidget {
   const ReporteTransac({Key? key});
@@ -16,7 +17,10 @@ class ReporteTransac extends StatelessWidget {
             color: Colors.white,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()),
+            );
           },
         ),
         actions: [

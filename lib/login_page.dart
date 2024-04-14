@@ -20,7 +20,7 @@ class LoginPage extends StatelessWidget {
       String email, String password, BuildContext context) async {
     try {
       if (email.isEmpty || password.isEmpty) {
-        // Valida si el correo o la contraseña están vacíos
+       
         Fluttertoast.showToast(
           msg: "Por favor, ingresa correo y contraseña",
           toastLength: Toast.LENGTH_SHORT,
@@ -58,7 +58,7 @@ class LoginPage extends StatelessWidget {
     String password = '';
 
     return Scaffold(
-      body: SingleChildScrollView( // Agregado SingleChildScrollView
+      body: SingleChildScrollView( 
         child: Container(
           width: double.infinity,
           decoration: const BoxDecoration(
