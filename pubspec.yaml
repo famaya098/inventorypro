@@ -14,6 +14,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  image_picker: ^0.8.4+4
   firebase_core: ^2.7.0
   firebase_auth: ^4.5.0
   firebase_database: ^10.4.8
@@ -28,6 +29,7 @@ dependencies:
   rive: ^0.12.4
 
   fluttertoast: ^8.0.7
+  uuid: ^4.4.0
   #flushbar: ^1.10.4
 
   

@@ -1,89 +1,86 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'my_drawer.dart';
+import 'package:uuid/uuid.dart';
 
-class ProductosScreen extends StatelessWidget {
-  const ProductosScreen({Key? key});
+class ProductosScreen extends StatefulWidget {
+  const ProductosScreen({Key? key}) : super(key: key);
+
+  @override
+  _ProductosScreenState createState() => _ProductosScreenState();
+}
+
+class _ProductosScreenState extends State<ProductosScreen> {
+  late TextEditingController _nombreController;
+  late TextEditingController _descripcionController;
+  late TextEditingController _precioCompraController;
+  late TextEditingController _precioVentaController;
+  late TextEditingController _cantidadController;
+  late TextEditingController _unidadController;
+  late String _selectedEstatus;
+  late String _codigo;
+
+  @override
+  void initState() {
+    super.initState();
+    _nombreController = TextEditingController();
+    _descripcionController = TextEditingController();
+    _precioCompraController = TextEditingController();
+    _precioVentaController = TextEditingController();
+    _cantidadController = TextEditingController();
+    _unidadController = TextEditingController();
+    _selectedEstatus = "Activo";
+    _codigo = Uuid().v4(); // Generar un código único al iniciar el estado
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('InventoryPro'),
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        actions: [
-          Builder(
-            builder: (context) {
-              return IconButton(
-                icon: const Icon(
-                  Icons.menu,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-              );
-            },
-          ),
-        ],
-        backgroundColor: const Color(0xFF027A70), 
-        elevation: 0,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
+        title: Text('Añadir Producto'),
       ),
-      drawer: const MyDrawer(),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20.0),
+        padding: EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Center(
-              child: Text(
-                'AGREGAR PRODUCTOS',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF027A70),
-                ),
-              ),
+            Text(
+              'Información del Producto',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 30),
-            _buildTextFormField(label: 'Código:', hintText: ''),
-            const SizedBox(height: 20),
-            _buildTextFormField(label: 'Nombre:', hintText: ''),
-            const SizedBox(height: 20),
-            _buildTextFormField(label: 'Precio de Compra:', hintText: '', prefixText: '\$ '),
-            const SizedBox(height: 20),
-            _buildTextFormField(label: 'Precio de Venta:', hintText: '', prefixText: '\$ '),
-            const SizedBox(height: 20),
-            _buildDropdownButton(label: 'Unidad:', items: ['Unidad 1', 'Unidad 2', 'Unidad 3']),
-            const SizedBox(height: 20),
-            _buildTextFormField(label: 'Cantidad de Unidades que Ingresa:', hintText: ''),
-            const SizedBox(height: 40),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                 
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF027A70), 
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                ),
-                child: const Text(
-                  'Guardar',
-                  style: TextStyle(fontSize: 18, color: Colors.white),
-                ),
-              ),
+            SizedBox(height: 20),
+            _buildTextField('Código', _codigo, enabled: false),
+            _buildTextField('Nombre', _nombreController.text, controller: _nombreController),
+            _buildTextField('Descripción', _descripcionController.text, controller: _descripcionController),
+            SizedBox(height: 20),
+            Text(
+              'Detalles de la Compra',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20),
+            _buildTextField('Precio de Compra', _precioCompraController.text, controller: _precioCompraController, keyboardType: TextInputType.number),
+            _buildTextField('Precio de Venta', _precioVentaController.text, controller: _precioVentaController, keyboardType: TextInputType.number),
+            _buildTextField('Cantidad que Ingresa', _cantidadController.text, controller: _cantidadController, keyboardType: TextInputType.number),
+            _buildTextField('Unidad', _unidadController.text, controller: _unidadController),
+            _buildDropdownButton(),
+            SizedBox(height: 20),
+            Text(
+              'Agregar Foto',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20),
+            _buildImagePicker(),
+            SizedBox(height: 20),
+            Text(
+              'Creado por: ',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 10),
+            Text('Usuario actual'), // Aquí puedes mostrar el usuario actual
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                // Acción al presionar el botón "Guardar"
+              },
+              child: Text('Guardar'),
             ),
           ],
         ),
@@ -91,56 +88,75 @@ class ProductosScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTextFormField({required String label, required String hintText, String prefixText = ''}) {
+  Widget _buildTextField(String label, String value, {TextEditingController? controller, TextInputType? keyboardType, bool enabled = true}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           label,
-          style: const TextStyle(fontSize: 18, color: Colors.black87),
+          style: TextStyle(fontSize: 18),
         ),
-        const SizedBox(height: 8),
+        SizedBox(height: 8),
         TextFormField(
-          style: const TextStyle(fontSize: 16),
+          controller: controller,
+          keyboardType: keyboardType,
+          enabled: enabled,
           decoration: InputDecoration(
-            hintText: hintText,
-            prefixText: prefixText,
-            contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
+            border: OutlineInputBorder(),
+            hintText: value,
           ),
-          keyboardType: TextInputType.number,
         ),
+        SizedBox(height: 16),
       ],
     );
   }
 
-  Widget _buildDropdownButton({required String label, required List<String> items}) {
+  Widget _buildDropdownButton() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          label,
-          style: const TextStyle(fontSize: 18, color: Colors.black87),
+          'Estatus',
+          style: TextStyle(fontSize: 18),
         ),
-        const SizedBox(height: 8),
-        DropdownButton<String>(
-          isExpanded: true,
-          underline: Container(
-            height: 2,
-            color: Colors.blueAccent,
-          ),
-          icon: const Icon(Icons.arrow_drop_down, color: Colors.white), 
-          iconSize: 36,
-          style: const TextStyle(fontSize: 16, color: Colors.black87),
-          items: items.map((String value) {
+        SizedBox(height: 8),
+        DropdownButtonFormField<String>(
+          value: _selectedEstatus,
+          items: ["Activo", "Inactivo", "Descontinuado"].map((estatus) {
             return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
+              value: estatus,
+              child: Text(estatus),
             );
           }).toList(),
-          onChanged: (_) {},
+          onChanged: (String? newValue) {
+            setState(() {
+              _selectedEstatus = newValue!;
+            });
+          },
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+          ),
+        ),
+        SizedBox(height: 16),
+      ],
+    );
+  }
+
+  Widget _buildImagePicker() {
+    return Column(
+      children: [
+        Container(
+          height: 150,
+          width: double.infinity,
+          color: Colors.grey.withOpacity(0.2),
+          child: Icon(Icons.photo),
+        ),
+        SizedBox(height: 8),
+        TextButton(
+          onPressed: () {
+            // Mostrar selector de imágenes
+          },
+          child: Text('Seleccionar Foto'),
         ),
       ],
     );
