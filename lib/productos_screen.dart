@@ -51,7 +51,7 @@ class _ProductosScreenState extends State<ProductosScreen> {
             _buildTextField('Nombre', _nombreController.text, controller: _nombreController),
             _buildTextField('Descripción', _descripcionController.text, controller: _descripcionController),
             SizedBox(height: 20),
-            Text(
+            const Text(
               'Detalles de la Compra',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
@@ -61,20 +61,20 @@ class _ProductosScreenState extends State<ProductosScreen> {
             _buildTextField('Cantidad que Ingresa', _cantidadController.text, controller: _cantidadController, keyboardType: TextInputType.number),
             _buildTextField('Unidad', _unidadController.text, controller: _unidadController),
             _buildDropdownButton(),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Agregar Foto',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             _buildImagePicker(),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Creado por: ',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10),
-            Text('Usuario actual'), // Aquí puedes mostrar el usuario actual
+            const SizedBox(height: 10),
+            const Text('Usuario actual'), // Aquí puedes mostrar el usuario actual
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
