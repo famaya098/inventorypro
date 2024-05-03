@@ -14,6 +14,7 @@ void main() => runApp(
     );
 
 class LoginPage extends StatelessWidget {
+  
   const LoginPage({super.key, required String title});
 
   Future<void> _signInWithEmailAndPassword(

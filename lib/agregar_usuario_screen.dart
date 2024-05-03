@@ -38,7 +38,6 @@ class _AgregarUsuariosScreenState extends State<AgregarUsuariosScreen> {
   final TextEditingController _tipoPermisoController = TextEditingController();
   String _fotoUrl = "";
   String _selectedPermiso = 'Administrador';
-  
 
   @override
   Widget build(BuildContext context) {
@@ -246,9 +245,14 @@ class _AgregarUsuariosScreenState extends State<AgregarUsuariosScreen> {
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-                child: const Text(
+                child: const Center(
+                child: Text(
                   'Guardar',
                   style: TextStyle(fontSize: 18, color: Colors.white),
+                ),
+              
+                  
+                 
                 ),
               ),
             ),
@@ -259,46 +263,45 @@ class _AgregarUsuariosScreenState extends State<AgregarUsuariosScreen> {
   }
 
   Widget _buildTextFormField({
-  required String label,
-  required String hintText,
-  TextInputType? keyboardType,
-  bool obscureText = false,
-  bool readOnly = false,
-  TextEditingController? controller,
-}) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        label,
-        style: const TextStyle(fontSize: 16, color: Colors.black87),
-      ),
-      const SizedBox(height: 8),
-      TextFormField(
-        controller: controller,
-        style: const TextStyle(fontSize: 16),
-        decoration: InputDecoration(
-          hintText: hintText,
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
+    required String label,
+    required String hintText,
+    TextInputType? keyboardType,
+    bool obscureText = false,
+    bool readOnly = false,
+    TextEditingController? controller,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(fontSize: 16, color: Colors.black87),
         ),
-        keyboardType: keyboardType,
-        obscureText: obscureText,
-        readOnly: readOnly,
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'Este campo es requerido';
-          }
-          return null;
-        },
-      ),
-    ],
-  );
-}
-
+        const SizedBox(height: 8),
+        TextFormField(
+          controller: controller,
+          style: const TextStyle(fontSize: 16),
+          decoration: InputDecoration(
+            hintText: hintText,
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+          ),
+          keyboardType: keyboardType,
+          obscureText: obscureText,
+          readOnly: readOnly,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Este campo es requerido';
+            }
+            return null;
+          },
+        ),
+      ],
+    );
+  }
 
   Widget _buildDatePicker(BuildContext context, String label) {
     return Column(
