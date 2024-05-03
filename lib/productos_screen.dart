@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:inventorypro/home_screen.dart';
+import 'package:inventorypro/my_drawer.dart';
 import 'package:uuid/uuid.dart';
 
 class ProductosScreen extends StatefulWidget {
@@ -35,31 +38,86 @@ class _ProductosScreenState extends State<ProductosScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Añadir Producto'),
+        title: const Text('Agregar Producto'),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()),
+            );
+          },
+        ),
+        actions: [
+          Builder(
+            builder: (context) {
+              return IconButton(
+                icon: const Icon(
+                  Icons.menu,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+              );
+            },
+          ),
+        ],
+        backgroundColor: const Color(0xFF027A70), // Color de la AppBar
+        elevation: 0,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
+      drawer: const MyDrawer(),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Información del Producto',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 20),
-            _buildTextField('Código', _codigo, enabled: false),
-            _buildTextField('Nombre', _nombreController.text, controller: _nombreController),
-            _buildTextField('Descripción', _descripcionController.text, controller: _descripcionController),
-            SizedBox(height: 20),
             const Text(
-              'Detalles de la Compra',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              'Información del Producto',
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF027A70),
+              ),
             ),
-            SizedBox(height: 20),
-            _buildTextField('Precio de Compra', _precioCompraController.text, controller: _precioCompraController, keyboardType: TextInputType.number),
-            _buildTextField('Precio de Venta', _precioVentaController.text, controller: _precioVentaController, keyboardType: TextInputType.number),
-            _buildTextField('Cantidad que Ingresa', _cantidadController.text, controller: _cantidadController, keyboardType: TextInputType.number),
-            _buildTextField('Unidad', _unidadController.text, controller: _unidadController),
+            const SizedBox(height: 20),
+            _buildTextField(
+              label: 'Nombre',
+              hintText: '',
+              controller: _nombreController,
+            ),
+            _buildTextField(
+              label: 'Descripción',
+              hintText: '',
+              controller: _descripcionController,
+            ),
+            _buildTextField(
+              label: 'Precio de Compra',
+              hintText: '',
+              controller: _precioCompraController,
+              keyboardType: TextInputType.number,
+            ),
+            _buildTextField(
+              label: 'Precio de Venta',
+              hintText: '',
+              controller: _precioVentaController,
+              keyboardType: TextInputType.number,
+            ),
+            _buildTextField(
+              label: 'Cantidad',
+              hintText: '',
+              controller: _cantidadController,
+              keyboardType: TextInputType.number,
+            ),
+            _buildTextField(
+              label: 'Unidad',
+              hintText: '',
+              controller: _unidadController,
+            ),
             _buildDropdownButton(),
             const SizedBox(height: 20),
             const Text(
@@ -69,18 +127,21 @@ class _ProductosScreenState extends State<ProductosScreen> {
             const SizedBox(height: 20),
             _buildImagePicker(),
             const SizedBox(height: 20),
-            const Text(
-              'Creado por: ',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
-            const Text('Usuario actual'), // Aquí puedes mostrar el usuario actual
-            SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 // Acción al presionar el botón "Guardar"
               },
-              child: Text('Guardar'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF027A70),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 40,
+                  vertical: 15,
+                ),
+              ),
+              child: Text('Guardar', style: TextStyle(fontSize: 18)),
             ),
           ],
         ),
@@ -88,25 +149,36 @@ class _ProductosScreenState extends State<ProductosScreen> {
     );
   }
 
-  Widget _buildTextField(String label, String value, {TextEditingController? controller, TextInputType? keyboardType, bool enabled = true}) {
+  Widget _buildTextField({
+    required String label,
+    required String hintText,
+    required TextEditingController controller,
+    TextInputType? keyboardType,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           label,
-          style: TextStyle(fontSize: 18),
+          style: const TextStyle(fontSize: 16, color: Colors.black87),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         TextFormField(
           controller: controller,
+          style: const TextStyle(fontSize: 16),
           keyboardType: keyboardType,
-          enabled: enabled,
           decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: value,
+            hintText: hintText,
+            contentPadding: const EdgeInsets.symmetric(
+              vertical: 15,
+              horizontal: 20,
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
           ),
         ),
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
       ],
     );
   }
@@ -115,11 +187,11 @@ class _ProductosScreenState extends State<ProductosScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           'Estatus',
-          style: TextStyle(fontSize: 18),
+          style: TextStyle(fontSize: 16, color: Colors.black87),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         DropdownButtonFormField<String>(
           value: _selectedEstatus,
           items: ["Activo", "Inactivo", "Descontinuado"].map((estatus) {
@@ -134,29 +206,37 @@ class _ProductosScreenState extends State<ProductosScreen> {
             });
           },
           decoration: InputDecoration(
-            border: OutlineInputBorder(),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
           ),
         ),
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
       ],
     );
   }
 
   Widget _buildImagePicker() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
           height: 150,
           width: double.infinity,
-          color: Colors.grey.withOpacity(0.2),
-          child: Icon(Icons.photo),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey),
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: const Center(
+            child: Icon(Icons.photo, size: 50),
+          ),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         TextButton(
           onPressed: () {
             // Mostrar selector de imágenes
           },
-          child: Text('Seleccionar Foto'),
+          child: Text('Seleccionar Foto', style: TextStyle(fontSize: 16)),
         ),
       ],
     );

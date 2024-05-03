@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
         title: const Text('', style: TextStyle(color: Colors.black)),
       ),
       drawer: const MyDrawer(),
-      endDrawer: const MyDrawer(),
+      //endDrawer: const MyDrawer(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
