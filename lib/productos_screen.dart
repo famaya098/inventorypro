@@ -1,16 +1,15 @@
-// ignore_for_file: avoid_print
-
 import 'dart:async';
-
-import 'package:firebase_database/firebase_database.dart';
 import 'dart:io';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inventorypro/home_screen.dart';
 import 'package:inventorypro/my_drawer.dart';
 import 'package:uuid/uuid.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class ProductosScreen extends StatefulWidget {
   const ProductosScreen({Key? key}) : super(key: key);
@@ -27,9 +26,10 @@ class _ProductosScreenState extends State<ProductosScreen> {
   late TextEditingController _cantidadController;
   late TextEditingController _unidadController;
   late String _selectedEstatus;
-  late String _codigo;
+  String _codigo = Uuid().v4();
   File? _image;
-  String? _nombreUsuario; // Variable para almacenar el nombre de usuario
+  String? _nombreUsuario;
+  String? _fotoUrl;
 
   @override
   void initState() {
@@ -41,46 +41,17 @@ class _ProductosScreenState extends State<ProductosScreen> {
     _cantidadController = TextEditingController();
     _unidadController = TextEditingController();
     _selectedEstatus = "Activo";
-    _codigo = Uuid().v4(); // Generar un código único al iniciar el estado
-    _obtenerNombreUsuario(); // Obtener el nombre de usuario al iniciar el estado
+    _obtenerNombreUsuario();
   }
 
-  // Función para obtener el nombre de usuario actual
-  void _obtenerNombreUsuario() {
-  User? user = FirebaseAuth.instance.currentUser;
-  if (user != null) {
-    // Obtener el UID del usuario actual
-    String uid = user.uid;
-
-    // Referencia al nodo de usuario correspondiente en la base de datos
-    DatabaseReference ref = FirebaseDatabase.instance.reference().child('usuarios').child(uid);
-
-    // Escuchar los cambios en el nodo del usuario
-    ref.once().then((DataSnapshot snapshot) {
-      // Verificar si el snapshot tiene datos antes de acceder a ellos
-      if (snapshot.value != null) {
-        // Obtener el nombre de usuario del snapshot
-        String? nombreUsuario = snapshot.value!['username'];
-
-        // Verificar si 'username' es nulo antes de asignarlo a _nombreUsuario
-        if (nombreUsuario != null) {
-          // Actualizar el estado con el nombre de usuario
-          setState(() {
-            _nombreUsuario = nombreUsuario;
-          });
-        }
-      }
-    } as FutureOr Function(DatabaseEvent value));
+  void _obtenerNombreUsuario() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      setState(() {
+        _nombreUsuario = user.displayName;
+      });
+    }
   }
-}
-
-
-
-
-
-
-
-
 
   Future<void> _pickImage(ImageSource source) async {
     final pickedImage = await ImagePicker().pickImage(source: source);
@@ -89,7 +60,88 @@ class _ProductosScreenState extends State<ProductosScreen> {
       setState(() {
         _image = File(pickedImage.path);
       });
+
+      Reference ref = FirebaseStorage.instance.ref().child('productos').child('${Uuid().v4()}.jpg');
+      UploadTask uploadTask = ref.putFile(File(pickedImage.path));
+      TaskSnapshot taskSnapshot = await uploadTask;
+      String fotoUrl = await taskSnapshot.ref.getDownloadURL();
+
+      setState(() {
+        _fotoUrl = fotoUrl;
+      });
     }
+  }
+
+  Future<void> _guardarProducto() async {
+    if (_validarCampos()) {
+      String codigo = _codigo;
+      String nombre = _nombreController.text;
+      String descripcion = _descripcionController.text;
+      double precioCompra = double.tryParse(_precioCompraController.text) ?? 0.0;
+      double precioVenta = double.tryParse(_precioVentaController.text) ?? 0.0;
+      int cantidad = int.tryParse(_cantidadController.text) ?? 0;
+      String unidad = _unidadController.text;
+      String creadoPor = _nombreUsuario ?? '';
+
+      Map<String, dynamic> productoData = {
+        'codigo': codigo,
+        'nombre': nombre,
+        'descripcion': descripcion,
+        'precioCompra': precioCompra,
+        'precioVenta': precioVenta,
+        'cantidad': cantidad,
+        'unidad': unidad,
+        'creadoPor': creadoPor,
+        'estatus': _selectedEstatus,
+        'fotoUrl': _fotoUrl,
+      };
+
+      await FirebaseDatabase.instance.reference().child('productos').push().set(productoData);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Producto agregado exitosamente'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+
+      _limpiarCampos();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Todos los campos son obligatorios'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
+  }
+
+  bool _validarCampos() {
+    return _nombreController.text.isNotEmpty &&
+        _descripcionController.text.isNotEmpty &&
+        _precioCompraController.text.isNotEmpty &&
+        _precioVentaController.text.isNotEmpty &&
+        _cantidadController.text.isNotEmpty &&
+        _unidadController.text.isNotEmpty;
+  }
+
+  void _limpiarCampos() {
+    _nombreController.clear();
+    _descripcionController.clear();
+    _precioCompraController.clear();
+    _precioVentaController.clear();
+    _cantidadController.clear();
+    _unidadController.clear();
+    _selectedEstatus = "Activo";
+    _generarNuevoCodigoProducto();
+    _image = null;
+    _fotoUrl = null;
+  }
+
+  void _generarNuevoCodigoProducto() {
+    setState(() {
+      _codigo = Uuid().v4();
+    });
   }
 
   @override
@@ -124,7 +176,7 @@ class _ProductosScreenState extends State<ProductosScreen> {
             },
           ),
         ],
-        backgroundColor: const Color(0xFF027A70), // Color de la AppBar
+        backgroundColor: const Color(0xFF027A70),
         elevation: 0,
         systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
@@ -196,9 +248,7 @@ class _ProductosScreenState extends State<ProductosScreen> {
             _buildImagePicker(),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
-                // Acción al presionar el botón "Guardar"
-              },
+              onPressed: _guardarProducto,
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF027A70),
                 shape: RoundedRectangleBorder(
@@ -252,6 +302,12 @@ class _ProductosScreenState extends State<ProductosScreen> {
               borderRadius: BorderRadius.circular(30),
             ),
           ),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Este campo es obligatorio';
+            }
+            return null;
+          },
         ),
         const SizedBox(height: 16),
       ],
@@ -285,6 +341,12 @@ class _ProductosScreenState extends State<ProductosScreen> {
               borderRadius: BorderRadius.circular(30),
             ),
           ),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Este campo es obligatorio';
+            }
+            return null;
+          },
         ),
         const SizedBox(height: 16),
       ],
@@ -316,7 +378,6 @@ class _ProductosScreenState extends State<ProductosScreen> {
         const SizedBox(height: 8),
         TextButton(
           onPressed: () {
-            // Mostrar selector de imágenes
             showModalBottomSheet(
               context: context,
               builder: (BuildContext context) {

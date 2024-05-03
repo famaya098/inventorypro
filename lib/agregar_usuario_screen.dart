@@ -38,6 +38,7 @@ class _AgregarUsuariosScreenState extends State<AgregarUsuariosScreen> {
   final TextEditingController _tipoPermisoController = TextEditingController();
   String _fotoUrl = "";
   String _selectedPermiso = 'Administrador';
+  late File? _image;
 
   @override
   Widget build(BuildContext context) {
@@ -213,6 +214,8 @@ class _AgregarUsuariosScreenState extends State<AgregarUsuariosScreen> {
                     _fechaNacimientoController.clear();
                     _creadoPorController.clear();
                     _fotoUrl = '';
+                    _image = null;
+                    setState(() {_image = null;});
                     _selectedPermiso =
                         'Administrador'; // Restablecer el valor del DropdownButtonFormField
                   } else {
@@ -269,6 +272,7 @@ class _AgregarUsuariosScreenState extends State<AgregarUsuariosScreen> {
     bool obscureText = false,
     bool readOnly = false,
     TextEditingController? controller,
+    String? Function(String?)? validator,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -353,60 +357,97 @@ class _AgregarUsuariosScreenState extends State<AgregarUsuariosScreen> {
   }
 
   Widget _buildPhotoPicker(BuildContext context, String label) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(fontSize: 16, color: Colors.black87),
-        ),
-        const SizedBox(height: 8),
-        GestureDetector(
-          onTap: () => _selectImage(context),
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.circular(30),
-            ),
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.photo, size: 30),
-                SizedBox(width: 16),
-                Text(
-                  'Seleccionar Foto',
-                  style: TextStyle(fontSize: 16),
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        label,
+        style: const TextStyle(fontSize: 16, color: Colors.black87),
+      ),
+      const SizedBox(height: 8),
+      GestureDetector(
+        onTap: () => _selectImage(context),
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey),
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                _fotoUrl.isEmpty ? 'Seleccionar Foto' : 'Cambiar Foto',
+                style: const TextStyle(fontSize: 16),
+              ),
+              if (_fotoUrl.isNotEmpty)
+                Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                      image: NetworkImage(_fotoUrl),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
-              ],
-            ),
+            ],
           ),
         ),
-      ],
-    );
+      ),
+    ],
+  );
+}
+
+Future<void> _selectImage(BuildContext context) async {
+  final picker = ImagePicker();
+  final pickedImage = await showModalBottomSheet(
+    context: context,
+    builder: (BuildContext context) {
+      return SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            ListTile(
+              leading: const Icon(Icons.photo_library),
+              title: const Text('Seleccionar de la galería'),
+              onTap: () async {
+                Navigator.pop(context, await picker.getImage(source: ImageSource.gallery));
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.photo_camera),
+              title: const Text('Tomar una foto'),
+              onTap: () async {
+                Navigator.pop(context, await picker.getImage(source: ImageSource.camera));
+              },
+            ),
+          ],
+        ),
+      );
+    },
+  );
+
+  if (pickedImage != null) {
+    // Subir la imagen a Firebase Storage
+    Reference ref =
+        FirebaseStorage.instance.ref().child('fotos/${DateTime.now()}.jpg');
+    UploadTask uploadTask = ref.putFile(File(pickedImage.path));
+
+    // Esperar a que la imagen se haya subido correctamente
+    TaskSnapshot taskSnapshot = await uploadTask;
+    String fotoUrl = await taskSnapshot.ref.getDownloadURL();
+
+    // Actualizar la URL de la foto
+    setState(() {
+      _fotoUrl = fotoUrl;
+    });
   }
+}
 
-  Future<void> _selectImage(BuildContext context) async {
-    final picker = ImagePicker();
-    final pickedImage = await picker.getImage(source: ImageSource.gallery);
 
-    if (pickedImage != null) {
-      // Subir la imagen a Firebase Storage
-      Reference ref =
-          FirebaseStorage.instance.ref().child('fotos/${DateTime.now()}.jpg');
-      UploadTask uploadTask = ref.putFile(File(pickedImage.path));
-
-      // Esperar a que la imagen se haya subido correctamente
-      TaskSnapshot taskSnapshot = await uploadTask;
-      String fotoUrl = await taskSnapshot.ref.getDownloadURL();
-
-      // Actualizar la URL de la foto
-      setState(() {
-        _fotoUrl = fotoUrl;
-      });
-    }
-  }
 
   Future<void> _registerUserWithEmailAndPassword(
       String email, String password) async {
