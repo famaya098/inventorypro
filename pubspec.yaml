@@ -22,6 +22,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   animate_do: ^3.1.2
   flutter_local_notifications: ^9.1.6
+  pdf: ^3.8.4
   
   flutter_bloc: ^8.1.1
   hydrated_bloc: ^9.0.0
