@@ -31,7 +31,7 @@ dependencies:
   equatable: ^2.0.3
   rive: ^0.12.4
 
-  fluttertoast: ^8.0.7
+  fluttertoast: ^8.0.8  # Agregamos la dependencia fluttertoast con la versión 8.0.8
   uuid: ^4.4.0
   #flushbar: ^1.10.4
 

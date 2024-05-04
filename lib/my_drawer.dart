@@ -51,7 +51,7 @@ class MyDrawer extends StatelessWidget {
                 TextIconButton(
                   onPressed: () => Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (_) => const ListaProductosScreen(),
+                      builder: (_) => const ListaProductos(),
                     ),
                   ),
                   icon: Icons.inventory_outlined,
@@ -101,7 +101,7 @@ class MyDrawer extends StatelessWidget {
                         Navigator.of(context).pop(); 
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (_) => const ListaUsuariosScreen(),
+                            builder: (_) => ReporteUsuariosScreen(),
                           ),
                         );
                       },
