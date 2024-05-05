@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:inventorypro/home_screen.dart';
-import 'package:inventorypro/editar_usuario.dart';
+import 'editar_usuario.dart';
 import 'my_drawer.dart';
 import 'clase_usuario.dart';
+import 'home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -224,7 +224,7 @@ class _ReporteUsuariosScreenState extends State<ReporteUsuariosScreen> {
                               onPressed: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => EditarUsuario()),
+                                  MaterialPageRoute(builder: (context) => EditarUsuario(usuario: usuario)),
                                 );
                               },
                             ),
@@ -237,22 +237,49 @@ class _ReporteUsuariosScreenState extends State<ReporteUsuariosScreen> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      title: const Text('Confirmar eliminación'),
-                                      content: const Text('¿Está seguro de que desea eliminar este usuario?'),
-                                      actions: [
+                                      title: const Text('Eliminar Usuario'),
+                                      content: const Text('¿Estás seguro de que quieres eliminar este usuario?'),
+                                      actions: <Widget>[
                                         TextButton(
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },
-                                          child: const Text('No'),
+                                          child: const Text('Cancelar'),
                                         ),
                                         TextButton(
                                           onPressed: () {
-                                            // Llamar al método de eliminación con el índice guardado
-                                            _deleteUsuario(selectedIndex);
-                                            Navigator.of(context).pop();
+                                            // Eliminar usuario de Firebase
+                                            DatabaseReference usuariosRef =
+                                                FirebaseDatabase.instance.reference().child('usuarios');
+                                            usuariosRef.child(usuario.id).remove().then((_) {
+                                              setState(() {
+                                                // Remover el usuario de la lista local
+                                                _usuarios.removeAt(selectedIndex);
+                                              });
+                                              Fluttertoast.showToast(
+                                                msg: 'Usuario eliminado',
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.BOTTOM,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor: Colors.grey,
+                                                textColor: Colors.white,
+                                                fontSize: 16.0,
+                                              );
+                                              Navigator.of(context).pop();
+                                            }).catchError((error) {
+                                              Fluttertoast.showToast(
+                                                msg: 'Error al eliminar usuario',
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.BOTTOM,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor: Colors.red,
+                                                textColor: Colors.white,
+                                                fontSize: 16.0,
+                                              );
+                                              Navigator.of(context).pop();
+                                            });
                                           },
-                                          child: const Text('Sí'),
+                                          child: const Text('Eliminar'),
                                         ),
                                       ],
                                     );
@@ -272,39 +299,5 @@ class _ReporteUsuariosScreenState extends State<ReporteUsuariosScreen> {
         ),
       ),
     );
-  }
-
-  void _deleteUsuario(int index) {
-    // Obtener el usuario correspondiente al índice
-    var usuario = _usuarios[index];
-    print('Eliminando usuario: ${usuario.id}');
-    // Eliminar el usuario de Firebase
-    FirebaseDatabase.instance.reference().child('usuarios').child(usuario.id).remove().then((_) {
-      print('Usuario eliminado de Firebase');
-      // Eliminar el usuario de la lista local después de eliminarlo de Firebase
-      setState(() {
-        _usuarios.removeAt(index);
-      });
-      Fluttertoast.showToast(
-        msg: 'Usuario eliminado',
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.grey,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
-    }).catchError((error) {
-      print('Error al eliminar usuario de Firebase: $error');
-      Fluttertoast.showToast(
-        msg: 'Error al eliminar usuario',
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
-    });
   }
 }

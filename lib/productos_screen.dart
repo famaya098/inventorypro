@@ -148,7 +148,7 @@ class _ProductosScreenState extends State<ProductosScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Agregar Producto'),
+        title: const Text('InventoryPro'),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
@@ -187,7 +187,7 @@ class _ProductosScreenState extends State<ProductosScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Información del Producto',
+              'Agregar Producto',
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,

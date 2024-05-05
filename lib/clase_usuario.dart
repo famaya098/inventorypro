@@ -1,4 +1,3 @@
-
 class Usuario {
     final String id;
     final String nombres;
@@ -29,8 +28,27 @@ class Usuario {
         required this.creadoPor,
         required this.fechaCreacion,
         required this.fotoUrl,
-         required this.username,
+        required this.username,
     });
+
+    Map<String, dynamic> toMap() {
+        return {
+            'uid': id,
+            'nombres': nombres,
+            'apellidos': apellidos,
+            'fechaNacimiento': fechaNacimiento,
+            'telefono': telefono,
+            'tipoPermiso': tipoPermiso,
+            'direccion': direccion,
+            'dui': dui,
+            'email': email,
+            'contrasena': contrasena,
+            'creadoPor': creadoPor,
+            'fechaCreacion': fechaCreacion,
+            'fotoUrl': fotoUrl,
+            'username': username,
+        };
+    }
 
     factory Usuario.fromMap(String id, Map<String, dynamic> map) {
         return Usuario(
