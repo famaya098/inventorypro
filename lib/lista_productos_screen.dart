@@ -114,9 +114,7 @@ class _ListaProductosState extends State<ListaProductos> {
                 ),
                 const SizedBox(width: 8),
                 TextButton.icon(
-                  onPressed: () async {
-                    
-                  },
+                  onPressed: () async {},
                   style: TextButton.styleFrom(
                     backgroundColor: const Color(0xFF027A70),
                     shape: RoundedRectangleBorder(
@@ -238,7 +236,30 @@ class _ListaProductosState extends State<ListaProductos> {
                               IconButton(
                                 icon: const Icon(Icons.delete),
                                 onPressed: () {
-                                  _eliminarProducto(producto);
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text('Confirmar Eliminación'),
+                                        content: const Text('¿Está seguro de que desea eliminar este producto?'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text('Cancelar'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              _eliminarProducto(producto);
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text('Eliminar'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
                                 },
                               ),
                             ],
