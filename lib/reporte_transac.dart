@@ -1,10 +1,27 @@
+//ReporteTransac
+
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/services.dart';
+import 'Transaccion.dart';
 import 'my_drawer.dart';
 import 'home_screen.dart';
 
-class ReporteTransac extends StatelessWidget {
-  const ReporteTransac({Key? key});
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+
+class ReporteTransac extends StatefulWidget {
+  const ReporteTransac({Key? key}) : super(key: key);
+
+  @override
+  _ReporteTransacState createState() => _ReporteTransacState();
+}
+
+class _ReporteTransacState extends State<ReporteTransac> {
+  String _searchQuery = '';
+  List<Transaccion> _transacciones = [];
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +55,7 @@ class ReporteTransac extends StatelessWidget {
             },
           ),
         ],
-        backgroundColor: const Color(0xFF027A70), 
+        backgroundColor: const Color(0xFF027A70),
         elevation: 0,
         systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
@@ -59,102 +76,179 @@ class ReporteTransac extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'Desde',
-                prefixIcon: Icon(Icons.calendar_today),
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 8),
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'Hasta',
-                prefixIcon: Icon(Icons.calendar_today),
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 8),
             Row(
               children: [
                 Expanded(
-                  child: TextButton.icon(
-                    onPressed: () {
-                      
-                    },
-                    style: TextButton.styleFrom(
-                      backgroundColor: const Color(0xFF027A70),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(30),
                     ),
-                    icon: const Icon(Icons.search, color: Colors.white),
-                    label: const Text(
-                      'Buscar',
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    child: TextField(
+                      onChanged: (value) {
+                        setState(() {
+                          _searchQuery = value;
+                        });
+                      },
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Buscar transacción',
+                        hintStyle: TextStyle(color: Colors.grey),
+                        prefixIcon: Icon(Icons.search, color: Colors.grey),
+                      ),
                     ),
                   ),
                 ),
                 const SizedBox(width: 8),
-                Expanded(
-                  child: TextButton.icon(
-                    onPressed: () {
-                      
-                    },
-                    style: TextButton.styleFrom(
-                      backgroundColor: const Color(0xFF027A70),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
+                TextButton.icon(
+                  onPressed: () {
+    _generatePdf(_transacciones);
+  },
+                  style: TextButton.styleFrom(
+                    backgroundColor: const Color(0xFF027A70),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
                     ),
-                    icon: const Icon(Icons.print, size: 24, color: Colors.white),
-                    label: const Text(
-                      'Imprimir',
-                      style: TextStyle(fontSize: 16, color: Colors.white),
-                    ),
+                  ),
+                  icon: const Icon(Icons.print, size: 24, color: Colors.white),
+                  label: const Text(
+                    'PDF',
+                    style: TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 20),
             const Divider(color: Colors.grey),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: 2,
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  margin: const EdgeInsets.symmetric(vertical: 8),
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                        offset: const Offset(0, 3),
+            StreamBuilder<DataSnapshot>(
+              stream: FirebaseDatabase.instance
+                  .reference()
+                  .child('transaccion_producto')
+                  .onValue
+                  .map((event) => event.snapshot),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const CircularProgressIndicator();
+                }
+                if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                }
+                if (!snapshot.hasData || snapshot.data!.value == null) {
+                  return const Text('No hay datos disponibles');
+                }
+                Map<dynamic, dynamic> transaccionesData =
+                    snapshot.data!.value as Map<dynamic, dynamic>;
+                _transacciones = transaccionesData.entries
+                    .map((entry) => Transaccion.fromMap(
+                        entry.key.toString(),
+                        Map<String, dynamic>.from(entry.value)))
+                    .toList();
+
+                _transacciones = _transacciones.where((transaccion) {
+                  return transaccion.nombreProducto
+                          .toLowerCase()
+                          .contains(_searchQuery.toLowerCase()) ||
+                      transaccion.codigoTransaccion
+                          .toLowerCase()
+                          .contains(_searchQuery.toLowerCase());
+                }).toList();
+
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: _transacciones.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var transaccion = _transacciones[index];
+                    return Card(
+                      elevation: 3,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
                       ),
-                    ],
-                  ),
-                  child: const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Nombre Producto', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                      SizedBox(height: 8),
-                      Text('Código Transacción: 12345'),
-                      Text('Fecha: 23/03/24'),
-                      Text('Código Producto: 12345'),
-                      Text('Tipo de transacción: Salida'),
-                      Text('Total: \$50.00'),
-                    ],
-                  ),
+                      child: ListTile(
+                        contentPadding: const EdgeInsets.all(16),
+                        title: Text(
+                          transaccion.nombreProducto,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                                'Código Transacción: ${transaccion.codigoTransaccion}'),
+                            Text('Fecha: ${transaccion.fechaTransaccion}'),
+                            Text(
+                                'Tipo de transacción: ${transaccion.tipoTransaccion}'),
+                            Text(
+                                'Cantidad Ingresada: ${transaccion.cantidadIngresada}'),
+                            Text('Stock Inicial: ${transaccion.stockInicial}'),
+                            Text('Stock Final: ${transaccion.stockFinal}'),
+                            Text('Creado Por: ${transaccion.creadoPor}'),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
                 );
               },
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Future<void> _generatePdf(List<Transaccion> transacciones) async {
+    final pdf = pw.Document();
+
+    // Agregar el contenido al PDF
+    pdf.addPage(
+      pw.Page(
+        build: (pw.Context context) {
+          return pw.Column(
+            children: transacciones.map((transaccion) {
+              return pw.Column(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: [
+                  pw.Text(
+                    'Nombre del producto: ${transaccion.nombreProducto}',
+                    style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                  ),
+                  pw.Text(
+                      'Código Transacción: ${transaccion.codigoTransaccion}'),
+                  pw.Text('Fecha: ${transaccion.fechaTransaccion}'),
+                  pw.Text(
+                      'Tipo de transacción: ${transaccion.tipoTransaccion}'),
+                  pw.Text(
+                      'Cantidad Ingresada: ${transaccion.cantidadIngresada}'),
+                  pw.Text('Stock Inicial: ${transaccion.stockInicial}'),
+                  pw.Text('Stock Final: ${transaccion.stockFinal}'),
+                  pw.Text('Creado Por: ${transaccion.creadoPor}'),
+                  pw.SizedBox(height: 20),
+                ],
+              );
+            }).toList(),
+          );
+        },
+      ),
+    );
+
+    // Guardar el PDF en el almacenamiento externo
+    final String dir = (await getExternalStorageDirectory())!.path;
+    final String path = '$dir/report_transacciones.pdf';
+    final File file = File(path);
+    await file.writeAsBytes(await pdf.save());
+    print('PDF guardado en: $path');
+
+    // Mostrar SnackBar
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Reporte Transacciones PDF generado con exito'),
+        duration: Duration(seconds: 2),
+        backgroundColor: Colors.green,
       ),
     );
   }

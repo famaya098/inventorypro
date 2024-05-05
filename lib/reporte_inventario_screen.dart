@@ -1,3 +1,4 @@
+//ReporteInventarioScreen
 import 'dart:io'; // Importa la biblioteca dart:io
 import 'package:path_provider/path_provider.dart'; // Importa la biblioteca path_provider
 
@@ -132,7 +133,7 @@ class _ReporteInventarioScreenState extends State<ReporteInventarioScreen> {
                   ),
                   icon: const Icon(Icons.print, size: 24, color: Colors.white),
                   label: const Text(
-                    'Imprimir',
+                    'PDF',
                     style: TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 ),
@@ -265,6 +266,13 @@ class _ReporteInventarioScreenState extends State<ReporteInventarioScreen> {
   final File file = File(path);
   await file.writeAsBytes(await pdf.save());
   print('PDF guardado en: $path');
-}
-
+// Mostrar SnackBar
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Reporte Productos PDF generado con exito'),
+        duration: Duration(seconds: 2),
+        backgroundColor: Colors.green,
+      ),
+    );
+  }
 }
