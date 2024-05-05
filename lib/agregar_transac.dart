@@ -25,13 +25,15 @@ class _AgregarTransacState extends State<AgregarTransac> {
   int? _cantidad = 0;
 
   final _stockProductoSubject = BehaviorSubject<int?>();
+  final _cantidadController = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-    _loadProductos();
-    _generarCodigoTransaccion(); // Generar el código de transacción inicialmente
-  }
+void initState() {
+  super.initState();
+  _loadProductos();
+  _generarCodigoTransaccion();
+  _cantidad = 0; // Inicializar _cantidad con 0
+}
 
   void _loadProductos() {
     _productosRef.onValue.listen((DatabaseEvent event) {
@@ -165,10 +167,11 @@ class _AgregarTransacState extends State<AgregarTransac> {
             ),
             const SizedBox(height: 20),
             _buildTextFormField(
-              label: 'Cantidad:',
-              hintText: '',
-              keyboardType: TextInputType.number,
-            ),
+  label: 'Cantidad:',
+  hintText: '',
+  keyboardType: TextInputType.number,
+  controller: _cantidadController,
+),
             const SizedBox(height: 20),
             _buildDropdownButton(
               label: 'Tipo Transacción:',
@@ -218,7 +221,13 @@ class _AgregarTransacState extends State<AgregarTransac> {
     );
   }
 
-  Widget _buildTextFormField({required String label, required String hintText, TextInputType? keyboardType, bool enabled = true}) {
+  Widget _buildTextFormField({
+  required String label,
+  required String hintText,
+  TextInputType? keyboardType,
+  bool enabled = true,
+  TextEditingController? controller, // Agregar este parámetro
+}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -242,6 +251,7 @@ class _AgregarTransacState extends State<AgregarTransac> {
         )
       else
         TextFormField(
+          controller: controller, // Utilizar el controlador proporcionado
           style: const TextStyle(fontSize: 16),
           decoration: InputDecoration(
             hintText: hintText,
@@ -291,14 +301,18 @@ class _AgregarTransacState extends State<AgregarTransac> {
 }
 
 String _calcularTotalStock() {
-  if (_selectedTipoTransaccion == 'Entrada' && _cantidad != null) {
-    return ((_stockProducto ?? 0) + _cantidad!).toString(); // Sumar la cantidad ingresada al stock actual
-  } else if (_selectedTipoTransaccion == 'Salida' && _cantidad != null) {
-    return ((_stockProducto ?? 0) - _cantidad!).toString(); // Restar la cantidad ingresada al stock actual
+  int? cantidad = int.tryParse(_cantidadController.text);
+
+  if (_selectedTipoTransaccion == 'Entrada' && cantidad != null) {
+    return ((_stockProducto ?? 0) + cantidad).toString(); // Sumar la cantidad ingresada al stock actual
+  } else if (_selectedTipoTransaccion == 'Salida' && cantidad != null) {
+    int totalStock = (_stockProducto ?? 0) - cantidad;
+    return totalStock >= 0 ? totalStock.toString() : 'No hay suficiente stock para la salida';
   } else {
     return _stockProducto?.toString() ?? ''; // Si no se ha seleccionado un tipo de transacción o no se ha ingresado una cantidad, mostrar el stock actual
   }
 }
+
 
 
 }
