@@ -1,12 +1,15 @@
+//editar_usuario
+
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'clase_usuario.dart';
 
 class EditarUsuario extends StatefulWidget {
+  final String userId;
   final Usuario usuario;
 
-  const EditarUsuario({Key? key, required this.usuario}) : super(key: key);
+  const EditarUsuario({Key? key, required this.userId, required this.usuario}) : super(key: key);
 
   @override
   _EditarUsuarioState createState() => _EditarUsuarioState();
@@ -55,13 +58,26 @@ class _EditarUsuarioState extends State<EditarUsuario> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Editar Usuario'),
+        title: const Text('InventoryPro'),
+        backgroundColor: const Color(0xFF027A70),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const Center(
+              child: Text(
+                'Actualizar datos',
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF027A70),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            _buildTextField(label: 'Código', controller: TextEditingController(text: widget.userId), readOnly: true),
             _buildTextField(label: 'Nombres', controller: _nombresController),
             _buildTextField(label: 'Apellidos', controller: _apellidosController),
             _buildTextField(label: 'Email', controller: _emailController),
@@ -70,11 +86,14 @@ class _EditarUsuarioState extends State<EditarUsuario> {
             _buildTextField(label: 'Username', controller: _usernameController),
             _buildTextField(label: 'Teléfono', controller: _telefonoController, keyboardType: TextInputType.phone),
             _buildTextField(label: 'Dirección', controller: _direccionController),
-            _buildTextField(label: 'Creado por', controller: _creadoPorController),
+            _buildTextField(label: 'Creado por', controller: _creadoPorController, readOnly: true),
             const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
-                onPressed: _guardarCambios,
+                onPressed: () {
+                  _guardarCambios();
+                  _limpiarCampos();
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF027A70),
                   padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
@@ -83,7 +102,7 @@ class _EditarUsuarioState extends State<EditarUsuario> {
                   ),
                 ),
                 child: const Text(
-                  'Guardar',
+                  'Actualizar',
                   style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
               ),
@@ -130,7 +149,7 @@ class _EditarUsuarioState extends State<EditarUsuario> {
   void _guardarCambios() {
     // Actualizar los datos en Firebase
     var nuevoUsuario = Usuario(
-      id: widget.usuario.id,
+      id: widget.userId,
       nombres: _nombresController.text,
       apellidos: _apellidosController.text,
       email: _emailController.text,
@@ -146,8 +165,8 @@ class _EditarUsuarioState extends State<EditarUsuario> {
       fotoUrl: widget.usuario.fotoUrl,
     );
 
-    DatabaseReference usuariosRef = FirebaseDatabase.instance.reference().child('usuarios');
-    usuariosRef.child(widget.usuario.id).update(nuevoUsuario.toMap()).then((_) {
+    DatabaseReference usuariosRef = FirebaseDatabase.instance.reference().child('usuarios').child(widget.userId); // Aquí agregamos .child(widget.userId) para apuntar al usuario correcto en la base de datos
+    usuariosRef.update(nuevoUsuario.toMap()).then((_) {
       Fluttertoast.showToast(
         msg: 'Usuario actualizado',
         toastLength: Toast.LENGTH_SHORT,
@@ -168,5 +187,16 @@ class _EditarUsuarioState extends State<EditarUsuario> {
         fontSize: 16.0,
       );
     });
+  }
+
+  void _limpiarCampos() {
+    _nombresController.clear();
+    _apellidosController.clear();
+    _emailController.clear();
+    _contrasenaController.clear();
+    _duiController.clear();
+    _usernameController.clear();
+    _telefonoController.clear();
+    _direccionController.clear();
   }
 }

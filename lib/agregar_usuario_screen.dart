@@ -1,3 +1,6 @@
+//agregar_usuario_screen
+
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:intl/intl.dart';
@@ -82,12 +85,14 @@ class _AgregarUsuariosScreenState extends State<AgregarUsuariosScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Información Personal',
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF027A70),
+             const Center(
+              child: Text(
+                'Información Personal',
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF027A70),
+                ),
               ),
             ),
             const SizedBox(height: 20),

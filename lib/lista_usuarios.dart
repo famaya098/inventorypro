@@ -1,3 +1,5 @@
+//lista_usuarios
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -37,6 +39,7 @@ class ReporteUsuariosScreen extends StatefulWidget {
 class _ReporteUsuariosScreenState extends State<ReporteUsuariosScreen> {
   String _searchQuery = '';
   List<Usuario> _usuarios = [];
+  List<String> _usuariosIds = [];
 
   List<Usuario> _filteredUsuarios() {
     return _usuarios.where((usuario) {
@@ -177,6 +180,12 @@ class _ReporteUsuariosScreenState extends State<ReporteUsuariosScreen> {
                         Map<String, dynamic>.from(entry.value)))
                     .toList();
 
+                // Limpiar la lista de IDs
+                _usuariosIds.clear();
+
+                // Llenar la lista de IDs
+                _usuariosIds.addAll(usuariosData.keys.cast<String>());
+
                 // Filtrar usuarios después de obtener datos de Firebase
                 _usuarios = _filteredUsuarios();
 
@@ -186,6 +195,8 @@ class _ReporteUsuariosScreenState extends State<ReporteUsuariosScreen> {
                   itemCount: _usuarios.length,
                   itemBuilder: (BuildContext context, int index) {
                     var usuario = _usuarios[index];
+                    var usuarioId = _usuariosIds[index]; // Obtener el ID del usuario
+
                     return Card(
                       elevation: 3,
                       shape: RoundedRectangleBorder(
@@ -205,6 +216,7 @@ class _ReporteUsuariosScreenState extends State<ReporteUsuariosScreen> {
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Text('Id: $usuarioId'), // Mostrar el ID del usuario
                             Text('Fecha de Nacimiento: ${usuario.fechaNacimiento}'),
                             Text('Teléfono: ${usuario.telefono}'),
                             Text('Tipo de Permiso: ${usuario.tipoPermiso}'),
@@ -224,15 +236,13 @@ class _ReporteUsuariosScreenState extends State<ReporteUsuariosScreen> {
                               onPressed: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => EditarUsuario(usuario: usuario)),
+                                  MaterialPageRoute(builder: (context) => EditarUsuario(userId: usuarioId, usuario: usuario)),
                                 );
                               },
                             ),
                             IconButton(
                               icon: const Icon(Icons.delete),
                               onPressed: () {
-                                // Guardar el índice antes de mostrar el diálogo de confirmación
-                                int selectedIndex = index;
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -251,10 +261,10 @@ class _ReporteUsuariosScreenState extends State<ReporteUsuariosScreen> {
                                             // Eliminar usuario de Firebase
                                             DatabaseReference usuariosRef =
                                                 FirebaseDatabase.instance.reference().child('usuarios');
-                                            usuariosRef.child(usuario.id).remove().then((_) {
+                                            usuariosRef.child(usuarioId).remove().then((_) {
                                               setState(() {
                                                 // Remover el usuario de la lista local
-                                                _usuarios.removeAt(selectedIndex);
+                                                _usuarios.remove(usuario);
                                               });
                                               Fluttertoast.showToast(
                                                 msg: 'Usuario eliminado',
@@ -287,6 +297,7 @@ class _ReporteUsuariosScreenState extends State<ReporteUsuariosScreen> {
                                 );
                               },
                             ),
+
                           ],
                         ),
                       ),
