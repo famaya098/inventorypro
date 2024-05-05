@@ -86,7 +86,7 @@ class _ReporteInventarioScreenState extends State<ReporteInventarioScreen> {
           children: [
             const Center(
               child: Text(
-                'Reporte de Inventario',
+                'Reporte de Inventarioo',
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,

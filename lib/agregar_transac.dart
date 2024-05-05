@@ -27,6 +27,9 @@ class _AgregarTransacState extends State<AgregarTransac> {
   final _stockProductoSubject = BehaviorSubject<int?>();
   final _cantidadController = TextEditingController();
 
+  final DatabaseReference _transaccionesRef =
+    FirebaseDatabase.instance.reference().child('transaccion_producto');
+
   @override
 void initState() {
   super.initState();
@@ -200,25 +203,98 @@ void initState() {
             ),
             const SizedBox(height: 20),
             Center(
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF027A70),
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                ),
-                child: const Text(
-                  'Guardar',
-                  style: TextStyle(fontSize: 18, color: Colors.white),
-                ),
-              ),
-            ),
+  child: ElevatedButton(
+    onPressed: _guardarTransaccion,
+    style: ElevatedButton.styleFrom(
+      backgroundColor: const Color(0xFF027A70),
+      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30),
+      ),
+    ),
+    child: const Text(
+      'Guardar',
+      style: TextStyle(fontSize: 18, color: Colors.white),
+    ),
+  ),
+),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> _guardarTransaccion() async {
+    final codigoTransaccion = _codigoTransaccion;
+    final fecha = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
+    final nombreProducto = _selectedProducto;
+    final stock = _stockProducto;
+    final cantidad = int.tryParse(_cantidadController.text) ?? 0;
+    final tipoTransaccion = _selectedTipoTransaccion;
+    final totalStock = int.tryParse(_calcularTotalStock()) ?? 0;
+    final creadoPor = 'fre098';
+
+    // Validar que todos los campos estén completos
+    if (nombreProducto == null || tipoTransaccion == null || cantidad == 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Por favor completa todos los campos'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    // Guardar la transacción
+    try {
+      final nuevoNodo = _transaccionesRef.push();
+      await nuevoNodo.set({
+        'codigoTransaccion': codigoTransaccion,
+        'fechaTransaccion': fecha,
+        'nombreProducto': nombreProducto,
+        'stockInicial': stock,
+        'cantidadIngresada': cantidad,
+        'tipoTransaccion': tipoTransaccion,
+        'stockFinal': totalStock,
+        'creadoPor': creadoPor,
+      });
+
+      final productoSnapshot = await _productosRef.get();
+      final productosMap = productoSnapshot.value as Map<dynamic, dynamic>?;
+      if (productosMap != null) {
+        for (final entry in productosMap.entries) {
+          final key = entry.key;
+          final value = entry.value as Map<dynamic, dynamic>;
+          if (value['nombre'] == nombreProducto) {
+            await _productosRef.child(key).update({'cantidad': totalStock});
+            break;
+          }
+        }
+      }
+
+      _cantidadController.clear();
+      setState(() {
+        _selectedTipoTransaccion = null;
+        _generarCodigoTransaccion();
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Transacción exitosa'),
+          duration: Duration(seconds: 2),
+          backgroundColor: Colors.green,
+        ),
+      );
+    } catch (e) {
+      print('Error al guardar la transacción: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error al guardar la transacción'),
+          backgroundColor: Colors.red,
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
   }
 
   Widget _buildTextFormField({

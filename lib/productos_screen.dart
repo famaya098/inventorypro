@@ -102,6 +102,7 @@ class _ProductosScreenState extends State<ProductosScreen> {
         SnackBar(
           content: Text('Producto agregado exitosamente'),
           duration: Duration(seconds: 2),
+          backgroundColor: Colors.green,
         ),
       );
 
@@ -110,6 +111,7 @@ class _ProductosScreenState extends State<ProductosScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Todos los campos son obligatorios'),
+          backgroundColor: Colors.red,
           duration: Duration(seconds: 2),
         ),
       );
